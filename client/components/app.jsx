@@ -32,7 +32,7 @@ export default class App extends React.Component {
 
 function Header() {
   return (
-    <div className='navbar-expand-md'>
+    <div className='navbar-expand-md mb-5'>
       <nav id='header' className="d-flex justify-content-start navbar navbar-dark bg-dark">
         <a className='nav-brand'>$</a>
         <div>
