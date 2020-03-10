@@ -29,8 +29,8 @@ export default class ProductList extends React.Component {
     const products = this.state.products;
     const productListItems = [];
     for(let i = 0; i < products.length; i++){
+      const { productId, name, price, image, shortDescripton } = products[i];
       productListItems.push(
-        {productId, name, price, image, shortDescripton} = products[i];
         <ProductListItem
           productId = {productId}
           name = {name}
@@ -40,9 +40,10 @@ export default class ProductList extends React.Component {
       )
     }
 
-
     return (
-      <div>ProductList</div>
+      <div>
+        {productListItems}
+      </div>
     );
   }
 }
