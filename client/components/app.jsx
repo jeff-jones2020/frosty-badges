@@ -1,4 +1,5 @@
 import React from 'react';
+import ProductListItem from './product-list-item';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -9,18 +10,7 @@ export default class App extends React.Component {
     };
   }
 
-  Header() {
-    return (
-      <div className='navbar-expand-md'>
-        <nav id='header' className="d-flex justify-content-start navbar navbar-dark bg-dark">
-          <a className='nav-brand'>$</a>
-          <div>
-            <a className='nav-item ml-2'>Wicked Sales</a>
-          </div>
-        </nav>
-      </div>
-    )
-  }
+
 
   componentDidMount() {
     fetch('/api/health-check')
@@ -32,7 +22,23 @@ export default class App extends React.Component {
 
   render() {
     return (
-      this.Header()
+      <>
+        {Header()}
+        <ProductListItem/>
+      </>
     )
   }
+}
+
+function Header() {
+  return (
+    <div className='navbar-expand-md'>
+      <nav id='header' className="d-flex justify-content-start navbar navbar-dark bg-dark">
+        <a className='nav-brand'>$</a>
+        <div>
+          <a className='nav-item ml-2'>Wicked Sales</a>
+        </div>
+      </nav>
+    </div>
+  )
 }
