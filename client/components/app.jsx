@@ -9,6 +9,15 @@ export default class App extends React.Component {
     };
   }
 
+  Header() {
+    return (
+      <section id='header' className='d-flex'>
+        <div className='bold'>$</div>
+        <div className='ml-2'>Wicked Sales</div>
+      </section>
+    )
+  }
+
   componentDidMount() {
     fetch('/api/health-check')
       .then(res => res.json())
@@ -18,8 +27,8 @@ export default class App extends React.Component {
   }
 
   render() {
-    return this.state.isLoading
-      ? <h1>Testing connections...</h1>
-      : <h1>{ this.state.message }</h1>;
+    return (
+      this.Header()
+    )
   }
 }
