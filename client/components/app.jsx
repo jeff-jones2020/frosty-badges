@@ -1,5 +1,5 @@
 import React from 'react';
-import ProductListItem from './product-list-item';
+import ProductList from './product-list';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -24,7 +24,7 @@ export default class App extends React.Component {
     return (
       <>
         {Header()}
-        <ProductListItem/>
+        <ProductList/>
       </>
     )
   }
