@@ -11,10 +11,14 @@ export default class App extends React.Component {
 
   Header() {
     return (
-      <section id='header' className='d-flex'>
-        <div className='bold'>$</div>
-        <div className='ml-2'>Wicked Sales</div>
-      </section>
+      <div className='navbar-expand-md'>
+        <nav id='header' className="d-flex justify-content-start navbar navbar-dark bg-dark">
+          <a className='nav-brand'>$</a>
+          <div>
+            <a className='nav-item ml-2'>Wicked Sales</a>
+          </div>
+        </nav>
+      </div>
     )
   }
 
