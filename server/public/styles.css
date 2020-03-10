@@ -1,0 +1,31 @@
+#header {
+  color: white;
+}
+
+.item-img {
+  object-fit: scale-down;
+}
+
+.card-container {
+  height: 350px;
+}
+
+.card-img-container {
+  height: 200px;
+}
+
+.title-text {
+  font-size: 14px;
+}
+
+.card-body-unpad {
+  padding: 0.6rem;
+  line-height: 1rem;
+}
+.card-text-small {
+  font-size: 10px;
+}
+
+.card-unpad {
+  padding: 0;
+}

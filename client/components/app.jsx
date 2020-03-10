@@ -1,4 +1,5 @@
 import React from 'react';
+import ProductList from './product-list';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -9,6 +10,8 @@ export default class App extends React.Component {
     };
   }
 
+
+
   componentDidMount() {
     fetch('/api/health-check')
       .then(res => res.json())
@@ -18,8 +21,24 @@ export default class App extends React.Component {
   }
 
   render() {
-    return this.state.isLoading
-      ? <h1>Testing connections...</h1>
-      : <h1>{ this.state.message }</h1>;
+    return (
+      <>
+        {Header()}
+        <ProductList/>
+      </>
+    )
   }
+}
+
+function Header() {
+  return (
+    <div className='navbar-expand-md mb-5'>
+      <nav id='header' className="d-flex justify-content-start navbar navbar-dark bg-dark">
+        <a className='nav-brand'>$</a>
+        <div>
+          <a className='nav-item ml-2'>Wicked Sales</a>
+        </div>
+      </nav>
+    </div>
+  )
 }
