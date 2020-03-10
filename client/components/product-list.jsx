@@ -29,21 +29,21 @@ export default class ProductList extends React.Component {
     const products = this.state.products;
     const productListItems = [];
     for(let i = 0; i < products.length; i++){
-      const { productId, name, price, image, shortDescripton } = products[i];
+      const { productId, name, price, image, shortDescription } = products[i];
       productListItems.push(
         <ProductListItem
           productId = {productId}
           name = {name}
           price = {price}
           image = {image}
-          shortDescripton = {shortDescripton} />
+          shortDescription = {shortDescription} />
       )
     }
 
     return (
-      <div>
+      <section className='product-list d-flex flex-wrap col-11 card-deck'>
         {productListItems}
-      </div>
+      </section>
     );
   }
 }

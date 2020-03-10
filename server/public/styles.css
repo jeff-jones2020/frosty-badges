@@ -1,3 +1,7 @@
 #header {
   color: white;
 }
+
+.card-img-top {
+  object-fit: scale-down;
+}
