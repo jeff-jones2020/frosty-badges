@@ -26,6 +26,21 @@ export default class ProductList extends React.Component {
   }
 
   render() {
+    const products = this.state.products;
+    const productListItems = [];
+    for(let i = 0; i < products.length; i++){
+      productListItems.push(
+        {productId, name, price, image, shortDescripton} = products[i];
+        <ProductListItem
+          productId = {productId}
+          name = {name}
+          price = {price}
+          image = {image}
+          shortDescripton = {shortDescripton} />
+      )
+    }
+
+
     return (
       <div>ProductList</div>
     );
