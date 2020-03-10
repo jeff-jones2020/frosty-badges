@@ -30,6 +30,22 @@ app.get('/api/products', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.get('/api/products/:id', (req, res, next) => {
+  const { id } = req.params;
+  const sql = `
+    select *
+      from "products"
+    where "productId" = $1
+  `;
+
+  db.query(sql, [id])
+    .then(result => {
+      if (result.rowCount === 0) { next(); }
+      return res.json(result.rows[0]);
+    })
+    .catch(err => next(err));
+});
+
 app.use('/api', (req, res, next) => {
   next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
 });
