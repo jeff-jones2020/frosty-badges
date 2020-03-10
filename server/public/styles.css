@@ -7,17 +7,25 @@
 }
 
 .card-container {
-  height: 400px;
+  height: 350px;
 }
 
 .card-img-container {
-  height: 250px;
+  height: 200px;
 }
 
 .card-title {
-  font-size: 16px;
+  font-size: 14px;
 }
 
+.card-body {
+  padding: 0.6rem;
+  line-height: 1rem;
+}
 .card-text {
-  font-size: 12px;
+  font-size: 10px;
+}
+
+.card {
+  padding: 0;
 }

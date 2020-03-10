@@ -31,7 +31,7 @@ export default class ProductList extends React.Component {
     for(let i = 0; i < products.length; i++){
       const { productId, name, price, image, shortDescription } = products[i];
       productListItems.push(
-        <div className='col-12 col-md-6 col-lg-4 mb-4 card-container' key={productId}>
+        <div className='col-9 col-sm-5 col-md-4 mb-4 card-container' key={productId}>
         <ProductListItem
           productId = {productId}
           name = {name}
