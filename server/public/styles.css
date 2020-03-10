@@ -2,7 +2,7 @@
   color: white;
 }
 
-.card-img-top {
+.item-img {
   object-fit: scale-down;
 }
 
@@ -14,18 +14,18 @@
   height: 200px;
 }
 
-.card-title {
+.title-text {
   font-size: 14px;
 }
 
-.card-body {
+.card-body-unpad {
   padding: 0.6rem;
   line-height: 1rem;
 }
-.card-text {
+.card-text-small {
   font-size: 10px;
 }
 
-.card {
+.card-unpad {
   padding: 0;
 }
