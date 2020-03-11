@@ -26,8 +26,8 @@ export default class ProductDetails extends React.Component {
         <div className='modal-dialog' role='document'>
           <div className='modal-content'>
               <h5 className='modal-title'>Modal title</h5>
-              <button type='button' className='close' dataDismiss='modal' ariaLabel='Close'>
-                <span ariaHidden='true'>&times;</span>
+              <button type='button' className='close' data-dismiss='modal' aria-label='Close'>
+                <span aria-hidden='true'>&times;</span>
               </button>
             <div className='modal-body'>
               <p>Modal body text goes here.</p>
