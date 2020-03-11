@@ -32,6 +32,9 @@ app.get('/api/products', (req, res, next) => {
 
 app.get('/api/products/:id', (req, res, next) => {
   const { id } = req.params;
+  if(id % 1 !== 0 || id < 1)
+    return next(new ClientError(`Invalid request, ID must be a positive integer`, 400));
+
   const sql = `
     select *
       from "products"
