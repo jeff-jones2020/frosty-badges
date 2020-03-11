@@ -51,12 +51,21 @@ app.get('/api/products/:id', (req, res, next) => {
 
 app.get('/api/cart', (req, res, next) => {
   const sql = `
-    select *
-      from "carts"
+    select
+        "c"."cartItemId",
+        "c"."price",
+        "p"."productId",
+        "p"."image",
+        "p"."name",
+        "p"."shortDescription"
+      from "cartItems" as "c"
+      join "products" as "p" using ("productId")
+      where "c"."cartId" = $1
   `;
 
-  db.query(sql)
-    .then(result => res.json([]))
+  if (!req.session.cartId) return res.json([])
+  db.query(sql, [req.session.cartId])
+    .then(result => res.json(result.rows))
     .catch(err => next(err));
 });
 
@@ -120,17 +129,6 @@ app.post('/api/cart', (req, res, next) => {
 
 });
 
-
-
-
-
-
-
-
-
-
-
-
 app.use('/api', (req, res, next) => {
   next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
 });
@@ -146,7 +144,7 @@ app.use((err, req, res, next) => {
   }
 });
 
-app.listen(process.env.PORT, () => {
+app.listen(3000, () => {
   // eslint-disable-next-line no-console
-  console.log('Listening on port', process.env.PORT);
+  console.log('Listening on port', 3000);
 });
