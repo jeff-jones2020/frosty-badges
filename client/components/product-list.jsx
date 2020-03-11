@@ -8,7 +8,6 @@ export default class ProductList extends React.Component {
     this.state = {
       products: []
     }
-    this.getProducts();
   }
 
   getProducts() {
@@ -19,6 +18,12 @@ export default class ProductList extends React.Component {
           products: data
         })
       })
+  }
+
+  setView(e) {
+    const name = 'details';
+    const {productId} = e.target;
+    this.props.setViewCallback(name, {productId: productId});
   }
 
   componentDidMount() {
