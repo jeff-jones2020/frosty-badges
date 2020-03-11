@@ -94,14 +94,17 @@ app.post('/api/cart', (req, res, next) => {
   db.query(priceSql, [productId])
     .then(result => {
       if (result.rowCount === 0) {
-        return next(new ClientError(`Invalid request, product ID '${productId}' does not exist`, 400));
+        return next(new ClientError(`Product ID '${productId}' does not exist`, 404));
       }
       return result.rows[0];
     })
     .then(data => {
-      return db.query(cartSql)
+      if(req.session.cartId) {
+        return ({ cartId: req.session.cartId, price: data.price });
+      }
+      return db.query(cartSql, [cartId])
         .then(result => {
-          return ({cartId: result.rows[0].cartId, price: data.price});
+          return ({ cartId: result.rows[0].cartId, price: data.price });
         })
     })
     .then(cartObj => {
