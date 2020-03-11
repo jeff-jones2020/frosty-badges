@@ -8,6 +8,8 @@ export default class ProductList extends React.Component {
     this.state = {
       products: []
     }
+
+    this.setView = this.setView.bind(this);
   }
 
   getProducts() {
@@ -43,7 +45,7 @@ export default class ProductList extends React.Component {
           price = {price}
           image = {image}
           shortDescription = {shortDescription}
-          setViewCallback = {this.props.setView}/>
+          setViewCallback = {this.setView}/>
         </div>
       )
     }

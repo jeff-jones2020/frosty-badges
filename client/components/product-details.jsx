@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default className ProductDetails extends React.Component {
+export default class ProductDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -31,7 +31,6 @@ export default className ProductDetails extends React.Component {
               </button>
             <div className='modal-body'>
               <p>Modal body text goes here.</p>
-            </div>
             </div>
           </div>
         </div>
