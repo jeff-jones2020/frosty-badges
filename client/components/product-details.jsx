@@ -21,6 +21,27 @@ export default class ProductDetails extends React.Component {
   render(){
     if (this.state.product === null) return null;
 
-    return <div>YO</div>
+    const price = this.state.product.price.toString();
+    const priceFormatted = '$' + price.slice(0, price.length - 2) + '.' + price.slice(price.length - 2);
+
+    return (
+      <section id='details-area'>
+        <button
+          id='back-to-catalog'
+          type='button'
+          onClick={this.props.setViewCallback}
+          className='text-muted'>
+          &lt; Back to catalog
+        </button>
+
+        <div id='details-content' className='d-flex flex-wrap col-12 mx-auto'>
+          <div id='detail-img-wrapper' className='details-img-container col-5'>
+            <img src={this.state.product.image}></img>
+          </div>
+          <div>{this.state.product.name}</div>
+          <div>{priceFormatted}</div>
+        </div>
+      </section>
+    );
   }
 }
