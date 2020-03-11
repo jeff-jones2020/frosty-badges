@@ -31,22 +31,25 @@ export default class ProductDetails extends React.Component {
     const priceFormatted = '$' + price.slice(0, price.length - 2) + '.' + price.slice(price.length - 2);
 
     return (
-      <section id='details-area'>
-        <button
+      <section id='details-area' className='card col-10 mx-auto p-3'>
+        <div
           id='back-to-catalog'
-          type='button'
           onClick={this.setView}
-          className='text-muted'>
+          className='text-muted mb-2'>
           &lt; Back to catalog
-        </button>
-
-        <div id='details-content' className='d-flex flex-wrap col-12 mx-auto'>
-          <div id='detail-img-wrapper' className='details-img-container col-5'>
-            <img src={this.state.product.image}></img>
-          </div>
-          <div>{this.state.product.name}</div>
-          <div>{priceFormatted}</div>
         </div>
+
+        <div id='details-content-top' className='d-flex flex-wrap mb-4'>
+          <div id='detail-img-wrapper' className='d-flex justify-content-center col-5'>
+            <img src={this.state.product.image} className='img-fluid'></img>
+          </div>
+          <section id='details-summary' className='d-flex flex-column col-7'>
+            <h4 className='font-weight-bold'>{this.state.product.name}</h4>
+            <div className='text-muted mb-4'>{priceFormatted}</div>
+            <p>{this.state.product.shortDescription}</p>
+          </section>
+        </div>
+        <p>{this.state.product.longDescription}</p>
       </section>
     );
   }
