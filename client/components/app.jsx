@@ -38,6 +38,21 @@ export default class App extends React.Component {
       })
   }
 
+  addToCart(product) {
+    fetch('/api/cart', {
+      method: 'POST',
+      body: product.productId
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        const newCart = cart.concat([data]);
+        this.setState({
+          cart: newCart
+        })
+      })
+  }
+
   componentDidMount() {
     fetch('/api/health-check')
       .then(res => res.json())
@@ -54,14 +69,14 @@ export default class App extends React.Component {
     if(viewName === 'catalog')
       return (
         <>
-          {Header({ cartItemCount: this.state.cart.length })}
+           { Header( { cartItemCount: this.state.cart.length } ) }
           <ProductList setViewCallback={this.setView}/>
         </>
       );
     else if (viewName === 'details')
       return (
         <>
-          {Header({cartItemCount: this.state.cart.length})}
+          { Header ( { cartItemCount: this.state.cart.length } ) }
           <ProductDetails viewParams={this.state.view.params} setViewCallback={this.setView} />
         </>
       );
