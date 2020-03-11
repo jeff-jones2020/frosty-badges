@@ -6,6 +6,12 @@ export default class ProductDetails extends React.Component {
     this.state = {
       product: null
     }
+
+    this.setView = this.setView.bind(this);
+  }
+
+  setView() {
+    this.props.setViewCallback('catalog', {})
   }
 
   componentDidMount() {
@@ -29,7 +35,7 @@ export default class ProductDetails extends React.Component {
         <button
           id='back-to-catalog'
           type='button'
-          onClick={this.props.setViewCallback}
+          onClick={this.setView}
           className='text-muted'>
           &lt; Back to catalog
         </button>
