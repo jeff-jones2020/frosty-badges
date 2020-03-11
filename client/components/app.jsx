@@ -54,27 +54,31 @@ export default class App extends React.Component {
     if(viewName === 'catalog')
       return (
         <>
-          {Header()}
+          {Header({ cartItemCount: this.state.cart.length })}
           <ProductList setViewCallback={this.setView}/>
         </>
       );
     else if (viewName === 'details')
       return (
         <>
-          {Header()}
+          {Header({cartItemCount: this.state.cart.length})}
           <ProductDetails viewParams={this.state.view.params} setViewCallback={this.setView} />
         </>
       );
   }
 }
 
-function Header() {
+function Header(props) {
   return (
     <div className='navbar-expand-md mb-4'>
       <nav id='header' className="d-flex justify-content-start navbar navbar-dark bg-dark">
         <a className='nav-brand'>$</a>
         <div>
           <a className='nav-item ml-2'>Wicked Sales</a>
+        </div>
+        <div className='ml-auto'>
+          <i className='fas fa-shopping-cart'></i>
+          <span id='cart-count' className='ml-1'>({props.cartItemCount})</span>
         </div>
       </nav>
     </div>
