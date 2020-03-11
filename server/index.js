@@ -103,7 +103,7 @@ app.post('/api/cart', (req, res, next) => {
   db.query(priceSql, [productId])
     .then(result => {
       if (result.rowCount === 0) {
-        return next(new ClientError(`Product ID '${productId}' does not exist`, 404));
+        throw new ClientError(`Product ID '${productId}' does not exist`, 404);
       }
       return result.rows[0];
     })
