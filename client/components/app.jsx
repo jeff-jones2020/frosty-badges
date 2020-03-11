@@ -32,12 +32,22 @@ export default class App extends React.Component {
   }
 
   render() {
-    return (
-      <>
-        {Header()}
-        <ProductList setViewCallback={this.setView}/>
-      </>
-    )
+    const viewName = this.state.view.name;
+
+    if(viewName === 'catalog')
+      return (
+        <>
+          {Header()}
+          <ProductList setViewCallback={this.setView}/>
+        </>
+      );
+    else if (viewName === 'details')
+      return (
+        <>
+          {Header()}
+          <ProductDetails setViewCallback={this.setView} />
+        </>
+      );
   }
 }
 
