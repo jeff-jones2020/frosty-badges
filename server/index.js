@@ -64,19 +64,57 @@ app.post('/api/cart', (req, res, next) => {
   const { productId } = req.body;
   if (productId % 1 !== 0 || productId < 1)
     return next(new ClientError(`Invalid request, productId must be a positive integer`, 400));
-  const sql = `
+  const priceSql = `
     select "price"
       from "products"
       where "productId" = $1
   `;
-  db.query(sql, [productId])
+  const cartSql = `
+    insert into "carts" ("cartId", "createdAt")
+      values (default, default)
+      returning "cartId"
+  `;
+  const cartItemsSql = `
+    insert into "cartItems" ("cartId", "productId", "price")
+      values ($1, $2, $3)
+      returning "cartItemId"
+  `;
+  const responseSql = `
+  select "c"."cartItemId",
+      "c"."price",
+      "p"."productId",
+      "p"."image",
+      "p"."name",
+      "p"."shortDescription"
+    from "cartItems" as "c"
+    join "products" as "p" using ("productId")
+    where "c"."cartItemId" = $1
+  `;
+
+  db.query(priceSql, [productId])
     .then(result => {
       if (result.rowCount === 0) {
-        next(new ClientError(`Invalid request, product ID '${productId}' does not exist`, 400));
+        return next(new ClientError(`Invalid request, product ID '${productId}' does not exist`, 400));
       }
-      return res.json(result.rows[0]);
+      return result.rows[0];
+    })
+    .then(data => {
+      return db.query(cartSql)
+        .then(result => {
+          return ({cartId: result.rows[0].cartId, price: data.price});
+        })
+    })
+    .then(cartObj => {
+      req.session.cartId = cartObj.cartId;
+      return db.query(cartItemsSql, [cartObj.cartId, productId, cartObj.price])
+        .then(result => result.rows[0].cartItemId);
+    })
+    .then(cartItemId => {
+      return db.query(responseSql, [cartItemId])
+        .then(result => res.status(201).json(result.rows[0]));
     })
     .catch(err => next(err));
+
 });
 
 
