@@ -60,6 +60,31 @@ app.get('/api/cart', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.post('/api/cart', (req, res, next) => {
+  const { productId } = req.body;
+  if (productId % 1 !== 0 || productId < 1)
+    return next(new ClientError(`Invalid request, productId must be a positive integer`, 400));
+  const sql = `
+    select "price"
+      from "products"
+      where "productId" = $1
+  `;
+  db.query(sql)
+    .then(result => res.json(result.rows[0]))
+    .catch(err => next(err));
+});
+
+
+
+
+
+
+
+
+
+
+
+
 app.use('/api', (req, res, next) => {
   next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
 });
