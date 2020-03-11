@@ -23,7 +23,6 @@ export default class ProductList extends React.Component {
   }
 
   setView(e) {
-    console.log(e.currentTarget.id);
     const name = 'details';
     const productId = e.currentTarget.id;
     this.props.setViewCallback(name, {productId: productId});
