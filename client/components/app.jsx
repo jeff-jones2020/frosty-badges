@@ -1,16 +1,30 @@
 import React from 'react';
 import ProductList from './product-list';
+import ProductDetails from './product-details';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       message: null,
-      isLoading: true
+      isLoading: true,
+      view: {
+        name: 'catalog',
+        params: {}
+      }
     };
+
+    this.setView = this.setView.bind(this);
   }
 
-
+  setView(name, params) {
+    this.setState({
+      view: {
+        name: name,
+        params: params
+      }
+    });
+  }
 
   componentDidMount() {
     fetch('/api/health-check')
@@ -21,18 +35,28 @@ export default class App extends React.Component {
   }
 
   render() {
-    return (
-      <>
-        {Header()}
-        <ProductList/>
-      </>
-    )
+    const viewName = this.state.view.name;
+
+    if(viewName === 'catalog')
+      return (
+        <>
+          {Header()}
+          <ProductList setViewCallback={this.setView}/>
+        </>
+      );
+    else if (viewName === 'details')
+      return (
+        <>
+          {Header()}
+          <ProductDetails viewParams={this.state.view.params} setViewCallback={this.setView} />
+        </>
+      );
   }
 }
 
 function Header() {
   return (
-    <div className='navbar-expand-md mb-5'>
+    <div className='navbar-expand-md mb-4'>
       <nav id='header' className="d-flex justify-content-start navbar navbar-dark bg-dark">
         <a className='nav-brand'>$</a>
         <div>
