@@ -45,7 +45,7 @@ export default class App extends React.Component {
       return (
         <>
           {Header()}
-          <ProductDetails setViewCallback={this.setView} />
+          <ProductDetails viewParams={this.state.view.params} setViewCallback={this.setView} />
         </>
       );
   }
