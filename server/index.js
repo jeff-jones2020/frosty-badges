@@ -69,8 +69,13 @@ app.post('/api/cart', (req, res, next) => {
       from "products"
       where "productId" = $1
   `;
-  db.query(sql)
-    .then(result => res.json(result.rows[0]))
+  db.query(sql, [productId])
+    .then(result => {
+      if (result.rowCount === 0) {
+        next(new ClientError(`Invalid request, product ID '${productId}' does not exist`, 400));
+      }
+      return res.json(result.rows[0]);
+    })
     .catch(err => next(err));
 });
 
