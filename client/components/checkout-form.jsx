@@ -35,15 +35,32 @@ export default class CheckoutForm extends React.Component {
       <form className='mb-5'>
         <div className='form-group'>
           <label for='name'>Name</label>
-          <input type='text' name='name' value={this.state.name} className='form-control' id='name'>
+          <input type='text'
+            name='name'
+            value={this.state.name}
+            onChange={this.updateStateText}
+            className='form-control'
+            id='name'>
         </div>
         <div className='form-group'>
           <label for='credit-card'>Credit Card</label>
-          <input type='text' name='credit-card' value={this.state.creditCard} className='form-control' id='creditCard'>
+            <input
+              type='text'
+              name='credit-card'
+              value={this.state.creditCard}
+              onChange={this.updateStateText}
+              className='form-control'
+              id='creditCard'>
         </div>
         <div className='form-group'>
           <label for='shipping-address'>Shipping Address</label>
-          <input type='text' name='shipping-address' value={this.state.shippingAddress} className='form-control' id='shippingAddress'>
+              <input
+                type='text'
+                name='shipping-address'
+                value={this.state.shippingAddress}
+                onChange={this.updateStateText}
+                className='form-control'
+                id='shippingAddress'>
         </div>
       </form>
       <div
