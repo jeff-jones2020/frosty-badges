@@ -39,10 +39,10 @@ export default class CartSummary extends React.Component {
           &lt; Back to catalog
         </div>
         <h2>My Cart</h2>
-        <div id='cart-items' className='row row-cols-1 mb-4'>
+        <div id='cart-items' className='row row-cols-1 mb-3'>
           {cartComponents}
         </div>
-        <div id='cart-total'><strong>Item Total: {formattedPrice}</strong></div>
+        <div id='cart-total' className='mb-3'><strong>Item Total: {formattedPrice}</strong></div>
       </section>
 
     );
