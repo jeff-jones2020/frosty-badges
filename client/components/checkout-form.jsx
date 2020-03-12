@@ -24,8 +24,14 @@ export default class CheckoutForm extends React.Component {
     });
   }
 
-  placeOrder() {
+  placeOrder(e) {
+    e.preventDefault();
     this.props.placeOrderCallback(this.state.inputs)
+    this.setView();
+  }
+
+  setView() {
+    this.props.setViewCallback('catalog', {});
   }
 
   render() {
@@ -71,7 +77,7 @@ export default class CheckoutForm extends React.Component {
       </div>
       <button
         id='place-order-btn'
-        type='button'
+        type='submit'
         className='btn btn-primary btn-sm fit-content'
         onClick={this.placeOrder} >
         Add to Cart
