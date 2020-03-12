@@ -1,6 +1,7 @@
 import React from 'react';
 import ProductList from './product-list';
 import ProductDetails from './product-details';
+import CartSummary from './cart-summary';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -87,6 +88,15 @@ export default class App extends React.Component {
             addToCartCallback={this.addToCart} />
         </>
       );
+    else if (viewName === 'cart')
+        return(
+          <>
+            <Header cartItemCount={this.state.cart.length} />
+            <CartSummary
+              viewParams={this.state.cart}
+              setViewCallback={this.setView} />
+          </>
+        );
   }
 }
 
