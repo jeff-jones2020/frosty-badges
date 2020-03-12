@@ -129,6 +129,33 @@ app.post('/api/cart', (req, res, next) => {
 
 });
 
+app.post('/api/orders', (req, res, next) => {
+  const {cartId} = req.session;
+  if(!cartId)
+    return next(new ClientError(`cartId does not exist`, 400));
+
+  const {name, creditCard, shippingAddress} = req.body;
+  if( !(name && creditCard && shippingAddress) )
+    return next(new ClientError(`Request must contain 'name', 'creditCard', and 'shippingAddress`, 400));
+
+  const orderSql = `
+    insert into "orders" ("cartId", "name", "creditCard", "shippingAddress")
+      values ($1, $2, $3, $4)
+      returning "orderId", "createdAt", "name", "creditCard", "shippingAddress"
+  `;
+  const params = [cartId, name, creditCard, shippingAddress];
+
+  db.query(orderSql, params)
+    .then(result => {
+      if(result.rows[0]) {
+        delete req.session.cartId;
+        res.status(201).json(result.rows[0]);
+      }
+    })
+    .catch(err => next(err));
+
+});
+
 app.use('/api', (req, res, next) => {
   next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
 });
