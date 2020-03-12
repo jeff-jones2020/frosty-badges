@@ -8,32 +8,28 @@ export default class CartSummary extends React.Component {
   }
 
   setView(e) {
-    if(e.target.id === 'checkout-btn')
-      this.props.setViewCallback('checkout', {});
-    else
-      this.props.setViewCallback('catalog', {});
+    if (e.target.id === 'checkout-btn') { this.props.setViewCallback('checkout', {}); } else { this.props.setViewCallback('catalog', {}); }
   }
 
   render() {
     let cartTotal = 0;
     const cartComponents = this.props.cartItems.map(item => {
       cartTotal += item.price;
-      return(
-      <CartSummaryItem
-        key={item.productId}
-        productId={item.productId}
-        name={item.name}
-        price={item.price}
-        image={item.image}
-        shortDescription={item.shortDescription} />
+      return (
+        <CartSummaryItem
+          key={item.productId}
+          productId={item.productId}
+          name={item.name}
+          price={item.price}
+          image={item.image}
+          shortDescription={item.shortDescription} />
       );
-    })
+    });
 
-    cartTotal = cartTotal.toString();
-    const formattedPrice = `
-    $${cartTotal.slice(0, cartTotal.length - 2)}.${cartTotal.slice(cartTotal.length - 2)}`;
+    cartTotal = (cartTotal / 100).toFixed(2);
+    const formattedPrice = '$' + cartTotal;
 
-    return(
+    return (
       <section id='cart-summary-content' className='flex flex-column col-11 mx-auto'>
         <div
           id='back-to-catalog'
