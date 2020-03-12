@@ -35,9 +35,17 @@ export default class CheckoutForm extends React.Component {
   }
 
   render() {
+    const totalPrice = this.props.cartItems.reduce(
+      (accumulator, item) => accumulator + item.price,
+      0);
+
+    const price = totalPrice.toString();
+    const priceFormatted = '$' + totalPrice.slice(0, totalPrice.length - 2) +
+      '.' + totalPrice.slice(totalPrice.length - 2);
+
     return(
       <h1 className='my-4'>My Cart</h1>
-      <h5 className='mb-4'>Order Total: {this.props.orderTotal}</h5>
+      <h5 className='mb-4'>Order Total: {priceFormatted}</h5>
       <form className='mb-5'>
         <div className='form-group'>
           <label for='name'>Name</label>

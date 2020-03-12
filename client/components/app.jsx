@@ -2,6 +2,7 @@ import React from 'react';
 import ProductList from './product-list';
 import ProductDetails from './product-details';
 import CartSummary from './cart-summary';
+import CheckoutForm from './checkout-form';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -111,14 +112,24 @@ export default class App extends React.Component {
         </>
       );
     else if (viewName === 'cart')
-        return(
-          <>
-            <Header cartItemCount={this.state.cart.length} setViewCallback={this.setView} />
-            <CartSummary
-              cartItems={this.state.cart}
-              setViewCallback={this.setView}/>
-          </>
-        );
+      return(
+        <>
+          <Header cartItemCount={this.state.cart.length} setViewCallback={this.setView} />
+          <CartSummary
+            cartItems={this.state.cart}
+            setViewCallback={this.setView}/>
+        </>
+      );
+    else if (viewName === 'checkout')
+      return (
+        <>
+          <Header cartItemCount={this.state.cart.length} setViewCallback={this.setView} />
+          <CheckoutForm
+            cartItems={this.state.cart}
+            setViewCallback={this.setView}
+            placeOrderCallback={this.placeOrder} />
+        </>
+      );
   }
 }
 
