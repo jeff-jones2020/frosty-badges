@@ -40,7 +40,8 @@
   object-fit: scale-down;
   height: 100%;
 }
-#back-to-catalog:hover {
+#back-to-catalog:hover,
+#continue-shopping:hover {
   cursor: pointer;
 }
 

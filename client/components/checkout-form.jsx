@@ -14,6 +14,7 @@ export default class CheckoutForm extends React.Component {
 
     this.placeOrder = this.placeOrder.bind(this);
     this.updateStateText = this.updateStateText.bind(this);
+    this.setView = this.setView.bind(this);
   }
 
   updateStateText(e) {
