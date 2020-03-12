@@ -47,6 +47,7 @@ export default class ProductDetails extends React.Component {
             <h4 className='font-weight-bold'>{this.state.product.name}</h4>
             <div className='text-muted mb-4'>{priceFormatted}</div>
             <p>{this.state.product.shortDescription}</p>
+            <button id='details-add-cart-btn' type='button' className='btn btn-primary btn-sm p-1 fit-content'>Add to Cart</button>
           </section>
         </div>
         <p>{this.state.product.longDescription}</p>

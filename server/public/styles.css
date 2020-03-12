@@ -43,3 +43,7 @@
 #back-to-catalog:hover {
   cursor: pointer;
 }
+
+.fit-content {
+  width: fit-content;
+}
