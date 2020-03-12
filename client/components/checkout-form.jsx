@@ -1,15 +1,19 @@
 import React from 'react';
 
-export default class App extends React.Component {
+export default class CheckoutForm extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
 
     }
+
+    this.placeOrder = this.placeOrder.bind(this);
   }
 
-
+  placeOrder() {
+    this.props.placeOrderCallback(this.state)
+  }
 
   render() {
     return(
