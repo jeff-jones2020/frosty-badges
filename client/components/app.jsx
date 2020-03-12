@@ -2,6 +2,7 @@ import React from 'react';
 import ProductList from './product-list';
 import ProductDetails from './product-details';
 import CartSummary from './cart-summary';
+import CheckoutForm from './checkout-form';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -18,6 +19,7 @@ export default class App extends React.Component {
 
     this.setView = this.setView.bind(this);
     this.addToCart = this.addToCart.bind(this);
+    this.placeOrder = this.placeOrder.bind(this);
   }
 
   setView(name, params) {
@@ -57,6 +59,28 @@ export default class App extends React.Component {
       })
   }
 
+  placeOrder(orderData) {
+    const reqBody = JSON.stringify(orderData);
+    fetch('/api/orders', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: reqBody
+    })
+      .then(response => response.json())
+      .then(data => {
+        if(data.orderId)
+          this.setState({
+            cart: [],
+            view: {
+              name: 'catalog',
+              params: {}
+            }
+          })
+      })
+  }
+
   componentDidMount() {
     fetch('/api/health-check')
       .then(res => res.json())
@@ -88,14 +112,24 @@ export default class App extends React.Component {
         </>
       );
     else if (viewName === 'cart')
-        return(
-          <>
-            <Header cartItemCount={this.state.cart.length} setViewCallback={this.setView} />
-            <CartSummary
-              cartItems={this.state.cart}
-              setViewCallback={this.setView}/>
-          </>
-        );
+      return(
+        <>
+          <Header cartItemCount={this.state.cart.length} setViewCallback={this.setView} />
+          <CartSummary
+            cartItems={this.state.cart}
+            setViewCallback={this.setView}/>
+        </>
+      );
+    else if (viewName === 'checkout')
+      return (
+        <>
+          <Header cartItemCount={this.state.cart.length} setViewCallback={this.setView} />
+          <CheckoutForm
+            cartItems={this.state.cart}
+            setViewCallback={this.setView}
+            placeOrderCallback={this.placeOrder} />
+        </>
+      );
   }
 }
 

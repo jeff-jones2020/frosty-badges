@@ -5,14 +5,14 @@ export default class ProductDetails extends React.Component {
     super(props);
     this.state = {
       product: null
-    }
+    };
 
     this.setView = this.setView.bind(this);
     this.addToCart = this.addToCart.bind(this);
   }
 
   setView() {
-    this.props.setViewCallback('catalog', {})
+    this.props.setViewCallback('catalog', {});
   }
 
   addToCart() {
@@ -25,15 +25,15 @@ export default class ProductDetails extends React.Component {
       .then(data => {
         this.setState({
           product: data
-        })
-      })
+        });
+      });
   }
 
-  render(){
+  render() {
     if (this.state.product === null) return null;
 
-    const price = this.state.product.price.toString();
-    const priceFormatted = '$' + price.slice(0, price.length - 2) + '.' + price.slice(price.length - 2);
+    const price = (this.state.product.price / 100).toFixed(2); // convert to dollar amount
+    const priceFormatted = '$' + price;
 
     return (
       <section id='details-area' className='card col-10 mx-auto p-3'>
