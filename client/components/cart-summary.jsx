@@ -7,8 +7,11 @@ export default class CartSummary extends React.Component {
     this.setView = this.setView.bind(this);
   }
 
-  setView() {
-    this.props.setViewCallback('catalog', {});
+  setView(e) {
+    if(e.target.id === 'checkout-btn')
+      this.props.setViewCallback('checkout', {});
+    else
+      this.props.setViewCallback('catalog', {});
   }
 
   render() {
@@ -42,7 +45,18 @@ export default class CartSummary extends React.Component {
         <div id='cart-items' className='row row-cols-1 mb-3'>
           {cartComponents}
         </div>
-        <div id='cart-total' className='mb-3'><strong>Item Total: {formattedPrice}</strong></div>
+        <div id='cart-footer' className='d-flex flex-row justify-content-between align-items-center mb-4'>
+          <div id='cart-total'>
+            <strong>Item Total: {formattedPrice}</strong>
+          </div>
+          <button
+            id='checkout-btn'
+            type='button'
+            className='btn btn-primary btn-sm p-1 fit-content'
+            onClick={this.setView} >
+            Checkout
+          </button>
+        </div>
       </section>
 
     );
