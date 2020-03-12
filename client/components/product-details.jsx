@@ -8,6 +8,7 @@ export default class ProductDetails extends React.Component {
     }
 
     this.setView = this.setView.bind(this);
+    this.addToCart = this.addToCart.bind(this);
   }
 
   setView() {
