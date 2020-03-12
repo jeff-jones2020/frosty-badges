@@ -1,3 +1,5 @@
+import React from 'react';
+
 export default class CartSummary extends React.Component {
   render() {
     let cartTotal = 0;
@@ -11,6 +13,7 @@ export default class CartSummary extends React.Component {
         shortDescription={item.shortDescription} />
     })
 
+    cartTotal = cartTotal.toString();
     const formattedPrice = `$
     ${cartTotal.slice(0, cartTotal.length - 2)}.${cartTotal.slice(cartTotal.length - 2)}`;
 
