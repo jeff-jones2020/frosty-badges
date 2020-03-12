@@ -57,6 +57,28 @@ export default class App extends React.Component {
       })
   }
 
+  placeOrder(orderData) {
+    const reqBody = JSON.stringify(orderData);
+    fetch('/api/orders', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: reqBody
+    })
+      .then(response => response.json())
+      .then(data => {
+        if(data.orderId)
+          this.setState({
+            cart: [],
+            view: {
+              name: 'catalog',
+              params: {}
+            }
+          })
+      })
+  }
+
   componentDidMount() {
     fetch('/api/health-check')
       .then(res => res.json())
