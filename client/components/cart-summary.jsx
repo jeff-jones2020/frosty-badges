@@ -15,12 +15,15 @@ export default class CartSummary extends React.Component {
     let cartTotal = 0;
     const cartComponents = this.props.cartItems.map(item => {
       cartTotal += item.price;
+      return(
       <CartSummaryItem
+        key={item.productId}
         productId={item.productId}
         name={item.name}
         price={item.price}
         image={item.image}
         shortDescription={item.shortDescription} />
+      );
     })
 
     cartTotal = cartTotal.toString();
@@ -36,7 +39,7 @@ export default class CartSummary extends React.Component {
           &lt; Back to catalog
         </div>
         <h2>My Cart</h2>
-        <div id='cart-items'>
+        <div id='cart-items' className='row row-cols-1 mb-4'>
           {cartComponents}
         </div>
         <div id='cart-total'><strong>Item Total: {formattedPrice}</strong></div>
@@ -47,19 +50,19 @@ export default class CartSummary extends React.Component {
 }
 
 function CartSummaryItem(props) {
-  const price = this.props.price.toString();
+  const price = props.price.toString();
   const formattedPrice = `$
     ${price.slice(0, price.length - 2)}.${price.slice(price.length - 2)}`;
 
   return (
-    <div id={this.props.productId} onClick={this.props.setViewCallback} className='card card-unpad col-12 d-flex'>
-      <div className='card-img-container'>
-        <img src={this.props.image} className='h-100 flex-grow-1 item-img' alt={this.props.name} />
+    <div id={props.productId} onClick={props.setViewCallback} className='card card-unpad col-12 d-flex flex-row mb-3'>
+      <div className='card-img-container col-4 d-flex justify-content-center'>
+        <img src={props.image} className='h-100 flex-grow-1 item-img' alt={props.name} />
       </div>
       <div className='card-body card-body-unpad'>
-        <h5 className='card-title title-text'>{this.props.name}</h5>
+        <h5 className='card-title title-text'>{props.name}</h5>
         <p className='card-text card-text-small text-muted'>{formattedPrice}</p>
-        <p className='card-text'>{this.props.shortDescription}</p>
+        <p className='card-text'>{props.shortDescription}</p>
       </div>
     </div>
   );
