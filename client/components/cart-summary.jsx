@@ -38,7 +38,7 @@ export default class CartSummary extends React.Component {
           className='text-muted mb-2'>
           &lt; Back to catalog
         </div>
-        <h2>My Cart</h2>
+        <h2 className='my-4'>My Cart</h2>
         <div id='cart-items' className='row row-cols-1 mb-3'>
           {cartComponents}
         </div>
