@@ -47,3 +47,7 @@
 .fit-content {
   width: fit-content;
 }
+
+.fa-shopping-cart:hover {
+  cursor: pointer;
+}

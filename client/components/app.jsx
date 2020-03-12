@@ -102,12 +102,13 @@ export default class App extends React.Component {
 class Header extends React.Component {
   constructor(props){
     super(props);
-
     this.setView = this.setView.bind(this);
   }
+
   setView() {
     this.props.setViewCallback('cart', {});
   }
+
   render() {
     return (
       <div className='navbar-expand-md mb-4'>
