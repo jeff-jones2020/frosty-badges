@@ -73,14 +73,14 @@ export default class App extends React.Component {
     if(viewName === 'catalog')
       return (
         <>
-           { Header( { cartItemCount: this.state.cart.length } ) }
-          <ProductList setViewCallback={this.setView}/>
+           <Header cartItemCount={this.state.cart.length} />
+          <ProductList setViewCallback={this.setView} />
         </>
       );
     else if (viewName === 'details')
       return (
         <>
-          { Header ( { cartItemCount: this.state.cart.length } ) }
+          <Header cartItemCount={this.state.cart.length} />
           <ProductDetails
             viewParams={this.state.view.params}
             setViewCallback={this.setView}
