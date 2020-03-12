@@ -35,19 +35,21 @@ export default class CheckoutForm extends React.Component {
   }
 
   render() {
-    const totalPrice = this.props.cartItems.reduce(
+    let totalPrice = this.props.cartItems.reduce(
       (accumulator, item) => accumulator + item.price,
       0);
 
-    const price = totalPrice.toString();
+    totalPrice = totalPrice.toString();
     const priceFormatted = '$' + totalPrice.slice(0, totalPrice.length - 2) +
       '.' + totalPrice.slice(totalPrice.length - 2);
 
     return(
       <section id='checkout-form' className='d-flex flex-column col-11 mx-auto'>
         <h1 className='my-4'>My Cart</h1>
-        <h5 className='mb-4'>Order Total: {priceFormatted}</h5>
-        <form className='mb-5'>
+        <p className='text-muted mb-4'>
+          <strong>Order Total: {priceFormatted}</strong>
+        </p>
+        <form className='mb-4'>
           <div className='form-group'>
             <label for='name'>Name</label>
             <input type='text'
@@ -78,19 +80,21 @@ export default class CheckoutForm extends React.Component {
                   id='shippingAddress' />
           </div>
         </form>
-        <div
-          id='continue-shopping'
-          onClick={this.setView}
-          className='text-muted mb-2'>
-          &lt; Continue Shopping
+        <div id='checkout-footer' className='d-flex flex-row justify-content-between mb-4'>
+          <div
+            id='continue-shopping'
+            onClick={this.setView}
+            className='text-muted'>
+            &lt; Continue Shopping
+          </div>
+          <button
+            id='place-order-btn'
+            type='submit'
+            className='btn btn-primary btn-sm fit-content'
+            onClick={this.placeOrder} >
+            Place Order
+          </button>
         </div>
-        <button
-          id='place-order-btn'
-          type='submit'
-          className='btn btn-primary btn-sm fit-content'
-          onClick={this.placeOrder} >
-          Add to Cart
-        </button>
       </section>
     );
   }
