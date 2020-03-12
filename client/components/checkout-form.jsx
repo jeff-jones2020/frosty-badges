@@ -9,22 +9,24 @@ export default class App extends React.Component {
     }
   }
 
+
+
   render() {
     return(
       <h1 className='my-4'>My Cart</h1>
       <h5 className='mb-4'>Order Total: {this.props.orderTotal}</h5>
       <form className='mb-5'>
         <div className='form-group'>
-          <label for='formGroupExampleInput'>Name</label>
-          <input type='text' className='form-control' id='formGroupExampleInput' placeholder='Example input placeholder'>
+          <label for='name'>Name</label>
+          <input type='text' name='name' className='form-control' id='name-input'>
         </div>
         <div className='form-group'>
-          <label for='formGroupExampleInput2'>Credit Card</label>
-          <input type='text' className='form-control' id='formGroupExampleInput2' placeholder='Another input placeholder'>
+          <label for='credit-card'>Credit Card</label>
+          <input type='text' name='credit-card' className='form-control' id='card-input'>
         </div>
-          <div className='form-group'>
-          <label for='formGroupExampleInput2'>Shipping Address</label>
-          <input type='text' className='form-control' id='formGroupExampleInput2' placeholder='Another input placeholder'>
+        <div className='form-group'>
+          <label for='shipping-address'>Shipping Address</label>
+          <input type='text' name='shipping-address' className='form-control' id='shipping-input'>
         </div>
       </form>
       <div
