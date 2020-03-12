@@ -33,7 +33,6 @@ export default class App extends React.Component {
     fetch('/api/cart')
       .then(response => response.json())
       .then(data => {
-        console.log(data);
         this.setState({
           cart: Array.from(data)
         })
@@ -93,7 +92,8 @@ export default class App extends React.Component {
           <>
             <Header cartItemCount={this.state.cart.length} setViewCallback={this.setView} />
             <CartSummary
-              cartItems={this.state.cart} />
+              cartItems={this.state.cart}
+              setViewCallback={this.setView}/>
           </>
         );
   }

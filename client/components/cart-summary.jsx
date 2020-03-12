@@ -1,6 +1,16 @@
 import React from 'react';
 
 export default class CartSummary extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.setView = this.setView.bind(this);
+  }
+
+  setView() {
+    this.props.setViewCallback('catalog', {});
+  }
+
   render() {
     let cartTotal = 0;
     const cartComponents = this.props.cartItems.map(item => {
@@ -14,8 +24,8 @@ export default class CartSummary extends React.Component {
     })
 
     cartTotal = cartTotal.toString();
-    const formattedPrice = `$
-    ${cartTotal.slice(0, cartTotal.length - 2)}.${cartTotal.slice(cartTotal.length - 2)}`;
+    const formattedPrice = `
+    $${cartTotal.slice(0, cartTotal.length - 2)}.${cartTotal.slice(cartTotal.length - 2)}`;
 
     return(
       <section id='cart-summary-content' className='flex flex-column col-11 mx-auto'>
