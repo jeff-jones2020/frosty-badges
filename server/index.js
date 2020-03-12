@@ -111,7 +111,7 @@ app.post('/api/cart', (req, res, next) => {
       if(req.session.cartId) {
         return ({ cartId: req.session.cartId, price: data.price });
       }
-      return db.query(cartSql, [cartId])
+      return db.query(cartSql)
         .then(result => {
           return ({ cartId: result.rows[0].cartId, price: data.price });
         })
