@@ -17,10 +17,11 @@ export default class CheckoutForm extends React.Component {
   }
 
   updateStateText(e) {
+    const newInputs = JSON.parse(JSON.stringify(this.state.inputs));
+    newInputs[e.target.id] = e.target.value;
+
     this.setState({
-      inputs: {
-        [e.target.id] : e.target.value
-      }
+      inputs: newInputs
     });
   }
 
@@ -51,30 +52,30 @@ export default class CheckoutForm extends React.Component {
         </p>
         <form className='mb-4'>
           <div className='form-group'>
-            <label for='name'>Name</label>
+            <label htmlFor='name'>Name</label>
             <input type='text'
               name='name'
-              value={this.state.name}
+              value={this.state.inputs.name}
               onChange={this.updateStateText}
               className='form-control'
               id='name' />
           </div>
           <div className='form-group'>
-            <label for='credit-card'>Credit Card</label>
+            <label htmlFor='credit-card'>Credit Card</label>
               <input
                 type='text'
                 name='credit-card'
-                value={this.state.creditCard}
+                value={this.state.inputs.creditCard}
                 onChange={this.updateStateText}
                 className='form-control'
                 id='creditCard' />
           </div>
           <div className='form-group'>
-            <label for='shipping-address'>Shipping Address</label>
+            <label htmlFor='shipping-address'>Shipping Address</label>
                 <input
                   type='text'
                   name='shipping-address'
-                  value={this.state.shippingAddress}
+                  value={this.state.inputs.shippingAddress}
                   onChange={this.updateStateText}
                   className='form-control'
                   id='shippingAddress' />
