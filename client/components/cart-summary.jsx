@@ -71,7 +71,7 @@ function CartSummaryItem(props) {
   return (
     <div id={props.productId} onClick={props.setViewCallback} className='card card-unpad col-12 d-flex flex-row mb-3'>
       <div className='card-img-container col-4 d-flex justify-content-center'>
-        <img src={props.image} className='h-100 flex-grow-1 item-img' alt={props.name} />
+        <img src={props.image} className='h-100 flex-grow-1 img-fluid item-img' alt={props.name} />
       </div>
       <div className='card-body card-body-unpad'>
         <h5 className='card-title title-text'>{props.name}</h5>
