@@ -5,7 +5,9 @@ export default class CheckoutForm extends React.Component {
     super(props);
 
     this.state = {
-
+      name: '',
+      creditCard: '',
+      shippingAddress: ''
     }
 
     this.placeOrder = this.placeOrder.bind(this);
