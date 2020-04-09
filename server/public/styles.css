@@ -9,9 +9,6 @@
 .card-container {
   height: 350px;
 }
-.card-container:hover {
-  cursor: pointer;
-}
 
 .card-img-container {
   height: 200px;
@@ -31,6 +28,10 @@
 
 .card-unpad {
   padding: 0;
+  cursor: pointer;
+}
+.card-unpad:hover {
+  transform: scale(1.05);
 }
 
 #detail-img-wrapper {
