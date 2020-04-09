@@ -2,7 +2,7 @@
 A dynamic, responsive web application for shoppers who want amazing as-advertized-on-TV items.
 
 ## Live Website
-Try the application live at [https://memory-match.jeff-j.me](https://memory-match.jeff-j.me)
+Try the application live at [https://wicked-sales.jeff-j.me](https://wicked-sales.jeff-j.me)
 
 ## Technologies Used
 - React.js
