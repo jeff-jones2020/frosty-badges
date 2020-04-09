@@ -49,7 +49,8 @@ export default class CartSummary extends React.Component {
             id='checkout-btn'
             type='button'
             className='btn btn-primary btn-sm p-1 fit-content'
-            onClick={this.setView} >
+            onClick={this.setView}
+            disabled={!cartComponents.length}>
             Checkout
           </button>
         </div>

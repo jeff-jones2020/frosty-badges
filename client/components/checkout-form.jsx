@@ -9,7 +9,8 @@ export default class CheckoutForm extends React.Component {
         name: '',
         creditCard: '',
         shippingAddress: ''
-      }
+      },
+      orderDisabled: true
     };
 
     this.placeOrder = this.placeOrder.bind(this);
@@ -20,9 +21,11 @@ export default class CheckoutForm extends React.Component {
   updateStateText(e) {
     const newInputs = JSON.parse(JSON.stringify(this.state.inputs));
     newInputs[e.target.id] = e.target.value;
+    const disable = !(newInputs.name.length && newInputs.creditCard.length && newInputs.shippingAddress.length);
 
     this.setState({
-      inputs: newInputs
+      inputs: newInputs,
+      orderDisabled: disable
     });
   }
 
@@ -92,7 +95,8 @@ export default class CheckoutForm extends React.Component {
             id='place-order-btn'
             type='submit'
             className='btn btn-primary btn-sm fit-content'
-            onClick={this.placeOrder} >
+            onClick={this.placeOrder}
+            disabled={this.state.orderDisabled}>
             Place Order
           </button>
         </div>
