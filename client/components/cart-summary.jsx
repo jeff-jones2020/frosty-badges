@@ -13,11 +13,11 @@ export default class CartSummary extends React.Component {
 
   render() {
     let cartTotal = 0;
-    const cartComponents = this.props.cartItems.map(item => {
+    const cartComponents = this.props.cartItems.map((item, index) => {
       cartTotal += item.price;
       return (
         <CartSummaryItem
-          key={item.productId}
+          key={index}
           productId={item.productId}
           name={item.name}
           price={item.price}
