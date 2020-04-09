@@ -7,7 +7,7 @@ export default class ProductList extends React.Component {
 
     this.state = {
       products: []
-    }
+    };
 
     this.setView = this.setView.bind(this);
   }
@@ -18,14 +18,14 @@ export default class ProductList extends React.Component {
       .then(data => {
         this.setState({
           products: data
-        })
-      })
+        });
+      });
   }
 
   setView(e) {
     const name = 'details';
     const productId = e.currentTarget.id;
-    this.props.setViewCallback(name, {productId: productId});
+    this.props.setViewCallback(name, { productId: productId });
   }
 
   componentDidMount() {
@@ -35,19 +35,19 @@ export default class ProductList extends React.Component {
   render() {
     const products = this.state.products;
     const productListItems = [];
-    for(let i = 0; i < products.length; i++){
+    for (let i = 0; i < products.length; i++) {
       const { productId, name, price, image, shortDescription } = products[i];
       productListItems.push(
-        <div className='col-9 col-sm-5 col-md-4 mb-4 card-container' key={productId}>
-        <ProductListItem
-          productId = {productId}
-          name = {name}
-          price = {price}
-          image = {image}
-          shortDescription = {shortDescription}
-          setViewCallback = {this.setView}/>
+        <div className='col-12 col-sm-6 col-md-4 mb-4 card-container' key={productId}>
+          <ProductListItem
+            productId = {productId}
+            name = {name}
+            price = {price}
+            image = {image}
+            shortDescription = {shortDescription}
+            setViewCallback = {this.setView}/>
         </div>
-      )
+      );
     }
 
     return (
