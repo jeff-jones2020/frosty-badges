@@ -37,16 +37,16 @@ export default class App extends React.Component {
       .then(data => {
         this.setState({
           cart: Array.from(data)
-        })
-      })
+        });
+      });
   }
 
   addToCart(product) {
-    const reqBody = JSON.stringify({productId: product.productId});
+    const reqBody = JSON.stringify({ productId: product.productId });
     fetch('/api/cart', {
       method: 'POST',
       headers: {
-      'Content-Type': 'application/json'
+        'Content-Type': 'application/json'
       },
       body: reqBody
     })
@@ -55,8 +55,8 @@ export default class App extends React.Component {
         const newCart = this.state.cart.concat([data]);
         this.setState({
           cart: newCart
-        })
-      })
+        });
+      });
   }
 
   placeOrder(orderData) {
@@ -70,15 +70,16 @@ export default class App extends React.Component {
     })
       .then(response => response.json())
       .then(data => {
-        if(data.orderId)
+        if (data.orderId) {
           this.setState({
             cart: [],
             view: {
               name: 'catalog',
               params: {}
             }
-          })
-      })
+          });
+        }
+      });
   }
 
   componentDidMount() {
@@ -94,14 +95,14 @@ export default class App extends React.Component {
   render() {
     const viewName = this.state.view.name;
 
-    if(viewName === 'catalog')
+    if (viewName === 'catalog') {
       return (
         <>
           <Header cartItemCount={this.state.cart.length} setViewCallback={this.setView} />
           <ProductList setViewCallback={this.setView} />
         </>
       );
-    else if (viewName === 'details')
+    } else if (viewName === 'details') {
       return (
         <>
           <Header cartItemCount={this.state.cart.length} setViewCallback={this.setView} />
@@ -111,8 +112,8 @@ export default class App extends React.Component {
             addToCartCallback={this.addToCart} />
         </>
       );
-    else if (viewName === 'cart')
-      return(
+    } else if (viewName === 'cart') {
+      return (
         <>
           <Header cartItemCount={this.state.cart.length} setViewCallback={this.setView} />
           <CartSummary
@@ -120,7 +121,7 @@ export default class App extends React.Component {
             setViewCallback={this.setView}/>
         </>
       );
-    else if (viewName === 'checkout')
+    } else if (viewName === 'checkout') {
       return (
         <>
           <Header cartItemCount={this.state.cart.length} setViewCallback={this.setView} />
@@ -130,11 +131,12 @@ export default class App extends React.Component {
             placeOrderCallback={this.placeOrder} />
         </>
       );
+    }
   }
 }
 
 class Header extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.setView = this.setView.bind(this);
   }
@@ -151,7 +153,7 @@ class Header extends React.Component {
           <div>
             <a className='nav-item ml-2'>Wicked Sales</a>
           </div>
-          <div className='ml-auto' onClick={this.setView}>
+          <div className='ml-auto cart' onClick={this.setView}>
             <i className='fas fa-shopping-cart'></i>
             <span id='cart-count' className='ml-1'>({this.props.cartItemCount})</span>
           </div>
