@@ -2,8 +2,9 @@
   color: white;
 }
 
-.fas.fa-shopping-cart:hover {
+.cart:hover {
   transform: scale(1.4);
+  cursor: pointer;
 }
 
 .item-img {
@@ -51,8 +52,4 @@
 
 .fit-content {
   width: fit-content;
-}
-
-.fa-shopping-cart:hover {
-  cursor: pointer;
 }
