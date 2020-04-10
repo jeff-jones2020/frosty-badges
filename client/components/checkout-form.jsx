@@ -53,6 +53,7 @@ export default class CheckoutForm extends React.Component {
         <p className='text-muted mb-4'>
           <strong>Order Total: {priceFormatted}</strong>
         </p>
+        <h3 className='text-danger text-center'><em>***Please do not enter personal information, this checkout form is for demo purposes only***</em></h3>
         <form className='mb-4'>
           <div className='form-group'>
             <label htmlFor='name'>Name</label>
