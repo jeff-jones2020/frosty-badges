@@ -1,3 +1,32 @@
+html, body, #root {
+  height: 100%;
+}
+
+#warning-modal-wrapper {
+  position: absolute;
+  z-index: 1;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+#warning-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  background: white;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.disable-scroll {
+  height: 100%;
+  overflow: hidden;
+}
+
 #header {
   color: white;
 }
@@ -7,6 +36,9 @@
   cursor: pointer;
 }
 
+.product-list {
+  height: 100%;
+}
 .item-img {
   object-fit: scale-down;
 }

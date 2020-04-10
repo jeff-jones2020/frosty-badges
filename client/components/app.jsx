@@ -10,6 +10,7 @@ export default class App extends React.Component {
     this.state = {
       message: null,
       isLoading: true,
+      showWarning: true,
       view: {
         name: 'catalog',
         params: {}
@@ -17,9 +18,17 @@ export default class App extends React.Component {
       cart: []
     };
 
+    this.toggleWarning = this.toggleWarning.bind(this);
     this.setView = this.setView.bind(this);
     this.addToCart = this.addToCart.bind(this);
     this.placeOrder = this.placeOrder.bind(this);
+  }
+
+  toggleWarning() {
+    this.setState({
+      showWarning: false
+    });
+    document.getElementsByTagName('body')[0].classList.remove('disable-scroll');
   }
 
   setView(name, params) {
@@ -95,7 +104,15 @@ export default class App extends React.Component {
   render() {
     const viewName = this.state.view.name;
 
-    if (viewName === 'catalog') {
+    if (viewName === 'catalog' && this.state.showWarning) {
+      return (
+        <>
+          <DemoWarning toggleWarning={this.toggleWarning} />
+          <Header/>
+          <ProductList />
+        </>
+      );
+    } else if (viewName === 'catalog') {
       return (
         <>
           <Header cartItemCount={this.state.cart.length} setViewCallback={this.setView} />
@@ -161,4 +178,18 @@ class Header extends React.Component {
       </div>
     );
   }
+}
+
+function DemoWarning(props) {
+  document.getElementsByTagName('body')[0].classList.add('disable-scroll');
+
+  return (
+    <section id='warning-modal-wrapper'>
+      <div id='warning-modal'>
+        <h1>Warning</h1>
+        <h3>This website is a demo; <em>no real purchases will be made.</em></h3>
+        <button id='warning-modal-button' onClick={props.toggleWarning}>I understand</button>
+      </div>
+    </section>
+  );
 }
