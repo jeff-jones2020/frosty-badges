@@ -4,7 +4,9 @@ export default class ProductDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      product: null
+      product: null,
+      itemAdded: false,
+      quantity: 0
     };
 
     this.setView = this.setView.bind(this);
@@ -17,6 +19,10 @@ export default class ProductDetails extends React.Component {
 
   addToCart() {
     this.props.addToCartCallback(this.state.product);
+    this.setState({
+      itemAdded: true,
+      quantity: this.state.quantity + 1
+    });
   }
 
   componentDidMount() {
@@ -34,6 +40,7 @@ export default class ProductDetails extends React.Component {
 
     const price = (this.state.product.price / 100).toFixed(2); // convert to dollar amount
     const priceFormatted = '$' + price;
+    const addedMenuVisibleClass = this.state.itemAdded ? '' : ' invisible';
 
     return (
       <section id='details-area' className='card col-10 mx-auto p-3'>
@@ -59,6 +66,11 @@ export default class ProductDetails extends React.Component {
               onClick={this.addToCart} >
               Add to Cart
             </button>
+            <div className={`text center${addedMenuVisibleClass}`}>
+              Item added to cart!
+              <button type='button' className='btn btn-primary'>View Cart</button>
+              <button type='button' className='btn btn-primary'>Checkout</button>
+            </div>
           </section>
         </div>
         <p>{this.state.product.longDescription}</p>
