@@ -126,7 +126,8 @@ export default class App extends React.Component {
           <ProductDetails
             viewParams={this.state.view.params}
             setViewCallback={this.setView}
-            addToCartCallback={this.addToCart} />
+            addToCartCallback={this.addToCart}
+            toggleWarning={this.toggleWarning} />
         </>
       );
     } else if (viewName === 'cart') {
