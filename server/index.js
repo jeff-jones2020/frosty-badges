@@ -32,8 +32,7 @@ app.get('/api/products', (req, res, next) => {
 
 app.get('/api/products/:id', (req, res, next) => {
   const { id } = req.params;
-  if(id % 1 !== 0 || id < 1)
-    return next(new ClientError(`Invalid request, ID must be a positive integer`, 400));
+  if (id % 1 !== 0 || id < 1) { return next(new ClientError('Invalid request, ID must be a positive integer', 400)); }
 
   const sql = `
     select *
@@ -63,7 +62,7 @@ app.get('/api/cart', (req, res, next) => {
       where "c"."cartId" = $1
   `;
 
-  if (!req.session.cartId) return res.json([])
+  if (!req.session.cartId) return res.json([]);
   db.query(sql, [req.session.cartId])
     .then(result => res.json(result.rows))
     .catch(err => next(err));
@@ -71,8 +70,7 @@ app.get('/api/cart', (req, res, next) => {
 
 app.post('/api/cart', (req, res, next) => {
   const { productId } = req.body;
-  if (productId % 1 !== 0 || productId < 1)
-    return next(new ClientError(`Invalid request, productId must be a positive integer`, 400));
+  if (productId % 1 !== 0 || productId < 1) { return next(new ClientError('Invalid request, productId must be a positive integer', 400)); }
   const priceSql = `
     select "price"
       from "products"
@@ -84,8 +82,8 @@ app.post('/api/cart', (req, res, next) => {
       returning "cartId"
   `;
   const cartItemsSql = `
-    insert into "cartItems" ("cartId", "productId", "price")
-      values ($1, $2, $3)
+    insert into "cartItems" ("cartId", "productId", "price", "quantity")
+      values ($1, $2, $3, 1)
       returning "cartItemId"
   `;
   const responseSql = `
@@ -108,13 +106,13 @@ app.post('/api/cart', (req, res, next) => {
       return result.rows[0];
     })
     .then(data => {
-      if(req.session.cartId) {
+      if (req.session.cartId) {
         return ({ cartId: req.session.cartId, price: data.price });
       }
       return db.query(cartSql)
         .then(result => {
           return ({ cartId: result.rows[0].cartId, price: data.price });
-        })
+        });
     })
     .then(cartObj => {
       req.session.cartId = cartObj.cartId;
@@ -129,14 +127,29 @@ app.post('/api/cart', (req, res, next) => {
 
 });
 
-app.post('/api/orders', (req, res, next) => {
-  const {cartId} = req.session;
-  if(!cartId)
-    return next(new ClientError(`cartId does not exist`, 400));
+app.patch('/api/cart', (req, res, next) => {
+  const { productId, quantity } = req.body;
+  if (productId % 1 !== 0 || productId < 1) { return next(new ClientError('Invalid request, productId must be a positive integer', 400)); }
+  if (quantity % 1 !== 0 || quantity < 1) { return next(new ClientError('Invalid request, quantity must be a positive integer', 400)); }
 
-  const {name, creditCard, shippingAddress} = req.body;
-  if( !(name && creditCard && shippingAddress) )
-    return next(new ClientError(`Request must contain 'name', 'creditCard', and 'shippingAddress`, 400));
+  const updateSql = `
+    UPDATE "cartItems"
+      SET quantity = $1
+      WHERE (cartId = ${req.session.cartId} AND productId = ${productId}
+      RETURNING *
+  `;
+
+  db.query(updateSql, [productId])
+    .then(result => res.status(201).json(result.rows[0]));
+
+});
+
+app.post('/api/orders', (req, res, next) => {
+  const { cartId } = req.session;
+  if (!cartId) { return next(new ClientError('cartId does not exist', 400)); }
+
+  const { name, creditCard, shippingAddress } = req.body;
+  if (!(name && creditCard && shippingAddress)) { return next(new ClientError('Request must contain \'name\', \'creditCard\', and \'shippingAddress\'', 400)); }
 
   const orderSql = `
     insert into "orders" ("cartId", "name", "creditCard", "shippingAddress")
@@ -147,7 +160,7 @@ app.post('/api/orders', (req, res, next) => {
 
   db.query(orderSql, params)
     .then(result => {
-      if(result.rows[0]) {
+      if (result.rows[0]) {
         delete req.session.cartId;
         res.status(201).json(result.rows[0]);
       }

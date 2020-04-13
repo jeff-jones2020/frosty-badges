@@ -22,7 +22,8 @@ export default class CartSummary extends React.Component {
           name={item.name}
           price={item.price}
           image={item.image}
-          shortDescription={item.shortDescription} />
+          shortDescription={item.shortDescription}
+          quantity={item.quantity} />
       );
     });
 
@@ -74,6 +75,8 @@ function CartSummaryItem(props) {
         <h5 className='card-title title-text'>{props.name}</h5>
         <p className='card-text card-text-small text-muted'>{formattedPrice}</p>
         <p className='card-text'>{props.shortDescription}</p>
+        <label htmlFor='quantity'>Quantity (between 1 and 100):</label>
+        <input type='number' id='quantity' name='quantity' min='1' max='100' value={props.quantity}/>
       </div>
     </div>
   );
