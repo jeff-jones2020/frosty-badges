@@ -13,8 +13,10 @@ export default class ProductDetails extends React.Component {
     this.addToCart = this.addToCart.bind(this);
   }
 
-  setView() {
-    this.props.setViewCallback('catalog', {});
+  setView(e) {
+    const view = e.currentTarget.getAttribute('view');
+    this.props.toggleWarning();
+    this.props.setViewCallback(view, {});
   }
 
   addToCart() {
@@ -43,10 +45,11 @@ export default class ProductDetails extends React.Component {
 
     return (
       <>
-        {this.state.itemAdded ? <AddedModal toggleWarning={this.props.toggleWarning}/> : <i/>}
+        {this.state.itemAdded ? <AddedModal setView={this.setView}/> : <i/>}
         <section id='details-area' className='card col-10 mx-auto p-3'>
           <div
             id='back-to-catalog'
+            view='catalog'
             onClick={this.setView}
             className='text-muted mb-2'>
             &lt; Back to catalog
@@ -81,9 +84,10 @@ function AddedModal(props) {
 
   return (
     <section id='added-modal-wrapper'>
-      <div id='added-modal'>
-        <h1 className='text-primary'>Item added to cart!</h1>
-        <button id='added-modal-button' type='button' onClick={props.toggleWarning} className='btn btn-primary'>Continue Shopping</button>
+      <div id='added-modal' className='d-flex flex-column align-items-center'>
+        <h1 className='text-primary mb-4'>Item added to cart!</h1>
+        <button type='button' view='catalog' onClick={props.setView} className='btn btn-primary mb-2'>Continue Shopping</button>
+        <button type='button' view='cart' onClick={props.setView} className='btn btn-primary'>View Cart</button>
       </div>
     </section>
   );

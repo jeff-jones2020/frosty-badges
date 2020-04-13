@@ -15,7 +15,8 @@ export default class App extends React.Component {
         name: 'catalog',
         params: {}
       },
-      cart: []
+      cart: [],
+      cartTotal: 0
     };
 
     this.toggleWarning = this.toggleWarning.bind(this);
