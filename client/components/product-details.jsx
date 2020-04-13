@@ -45,7 +45,7 @@ export default class ProductDetails extends React.Component {
 
     return (
       <>
-        {this.state.itemAdded ? <AddedModal setView={this.setView}/> : <i/>}
+        {this.state.itemAdded ? <AddedModal setView={this.setView} image={this.state.product.image}/> : <i/>}
         <section id='details-area' className='card col-10 mx-auto p-3'>
           <div
             id='back-to-catalog'
@@ -84,10 +84,18 @@ function AddedModal(props) {
 
   return (
     <section id='added-modal-wrapper'>
-      <div id='added-modal' className='d-flex flex-column align-items-center'>
-        <h1 className='text-primary mb-4'>Item added to cart!</h1>
-        <button type='button' view='catalog' onClick={props.setView} className='btn btn-primary mb-2'>Continue Shopping</button>
-        <button type='button' view='cart' onClick={props.setView} className='btn btn-primary'>View Cart</button>
+      <div id='added-modal' className='d-flex justify-content-between p-4'>
+        <section className='d-flex flex-column align-items-center justify-content-around mr-5'>
+          <h2 className='text-primary mb-4'>Item added to cart!</h2>
+          <div id='detail-img-wrapper' className='d-flex justify-content-center col-8'>
+            <img src={props.image} className='img-fluid'></img>
+          </div>
+        </section>
+        <section className='d-flex flex-column align-items-center justify-content-around btn-column'>
+          <button type='button' view='catalog' onClick={props.setView} className='btn btn-primary mb-2'>Continue<br/> Shopping</button>
+          <button type='button' view='cart' onClick={props.setView} className='btn btn-success mb-2'>View Cart</button>
+          <button type='button' view='checkout' onClick={props.setView} className='btn btn-success'>Checkout</button>
+        </section>
       </div>
     </section>
   );
