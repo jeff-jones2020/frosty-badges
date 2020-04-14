@@ -53,6 +53,7 @@ app.get('/api/cart', (req, res, next) => {
     select
         "c"."cartItemId",
         "c"."price",
+        "c"."quantity",
         "p"."productId",
         "p"."image",
         "p"."name",
@@ -81,14 +82,26 @@ app.post('/api/cart', (req, res, next) => {
       values (default, default)
       returning "cartId"
   `;
+  const checkItemSql = `
+    select "quantity"
+      from "cartItems"
+      where ("cartId" = ${req.session.cartId} AND "productId" = $1)
+  `;
   const cartItemsSql = `
     insert into "cartItems" ("cartId", "productId", "price", "quantity")
-      values ($1, $2, $3, 1)
+      values ($1, $2, $3, $4)
       returning "cartItemId"
+  `;
+  const updateSql = `
+    UPDATE "cartItems"
+      SET "quantity" = $1
+      WHERE ("cartId" = ${req.session.cartId} AND "productId" = ${productId})
+      RETURNING *
   `;
   const responseSql = `
   select "c"."cartItemId",
       "c"."price",
+      "c"."quantity",
       "p"."productId",
       "p"."image",
       "p"."name",
@@ -116,7 +129,20 @@ app.post('/api/cart', (req, res, next) => {
     })
     .then(cartObj => {
       req.session.cartId = cartObj.cartId;
-      return db.query(cartItemsSql, [cartObj.cartId, productId, cartObj.price])
+      return db.query(checkItemSql, [productId])
+        .then(quantity => {
+          console.log('Quantity Promise:', quantity);
+          if (quantity.rows[0] !== undefined) cartObj.quantity = quantity.rows[0].quantity;
+          return cartObj;
+        });
+    })
+    .then(cartObj => {
+      console.log('cartObj:', cartObj);
+      console.log('cartObj.quantity:', cartObj.quantity);
+      if (cartObj.quantity !== undefined) {
+        return db.query(updateSql, [++cartObj.quantity]);
+      }
+      return db.query(cartItemsSql, [cartObj.cartId, productId, cartObj.price, 1])
         .then(result => result.rows[0].cartItemId);
     })
     .then(cartItemId => {
@@ -134,12 +160,12 @@ app.patch('/api/cart', (req, res, next) => {
 
   const updateSql = `
     UPDATE "cartItems"
-      SET quantity = $1
-      WHERE (cartId = ${req.session.cartId} AND productId = ${productId}
+      SET "quantity" = $1
+      WHERE ("cartId" = ${req.session.cartId} AND "productId" = ${productId}
       RETURNING *
   `;
 
-  db.query(updateSql, [productId])
+  db.query(updateSql, [quantity])
     .then(result => res.status(201).json(result.rows[0]));
 
 });

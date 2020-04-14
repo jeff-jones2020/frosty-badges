@@ -75,7 +75,7 @@ function CartSummaryItem(props) {
         <h5 className='card-title title-text'>{props.name}</h5>
         <p className='card-text card-text-small text-muted'>{formattedPrice}</p>
         <p className='card-text'>{props.shortDescription}</p>
-        <label htmlFor='quantity'>Quantity (between 1 and 100):</label>
+        <label htmlFor='quantity' className='mr-2'>Quantity (between 1 and 100):</label>
         <input type='number' id='quantity' name='quantity' min='1' max='100' value={props.quantity}/>
       </div>
     </div>
