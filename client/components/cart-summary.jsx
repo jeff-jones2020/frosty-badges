@@ -25,7 +25,7 @@ export default class CartSummary extends React.Component {
   render() {
     let cartTotal = 0;
     const cartComponents = this.props.cartItems.map((item, index) => {
-      cartTotal += item.price;
+      cartTotal += item.price * item.quantity;
       return (
         <CartSummaryItem
           key={index}
