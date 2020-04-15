@@ -161,7 +161,7 @@ app.patch('/api/cart', (req, res, next) => {
   const updateSql = `
     UPDATE "cartItems"
       SET "quantity" = $1
-      WHERE ("cartId" = ${req.session.cartId} AND "productId" = ${productId}
+      WHERE "cartId" = ${req.session.cartId} AND "productId" = ${productId}
       RETURNING *
   `;
 

@@ -4,7 +4,12 @@ export default class CartSummary extends React.Component {
   constructor(props) {
     super(props);
 
+    this.changeQty = this.changeQty.bind(this);
     this.setView = this.setView.bind(this);
+  }
+
+  changeQty(e) {
+    this.props.changeQtyCallback(e.target.getAttribute('product-id'), e.target.value);
   }
 
   setView(e) {
@@ -30,7 +35,8 @@ export default class CartSummary extends React.Component {
           image={item.image}
           shortDescription={item.shortDescription}
           quantity={item.quantity}
-          setViewCallback={this.setView}/>
+          setViewCallback={this.setView}
+          changeQty={this.changeQty} />
       );
     });
 
@@ -82,8 +88,16 @@ function CartSummaryItem(props) {
         <h5 className='card-title title-text'>{props.name}</h5>
         <p className='card-text card-text-small text-muted'>{formattedPrice}</p>
         <p className='card-text'>{props.shortDescription}</p>
-        <label htmlFor='quantity' className='mr-2'>Quantity (between 1 and 100):</label>
-        <input type='number' id='quantity' name='quantity' min='1' max='100' value={props.quantity}/>
+        <label htmlFor='quantity' className='mr-2'>Quantity (100 max):</label>
+        <input
+          onChange={props.changeQty}
+          type='number'
+          id='quantity'
+          product-id={props.productId}
+          name='quantity'
+          min='1'
+          max='100'
+          defaultValue={props.quantity}/>
       </div>
     </div>
   );

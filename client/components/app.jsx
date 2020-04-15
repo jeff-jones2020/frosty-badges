@@ -22,6 +22,7 @@ export default class App extends React.Component {
     this.toggleWarning = this.toggleWarning.bind(this);
     this.setView = this.setView.bind(this);
     this.addToCart = this.addToCart.bind(this);
+    this.changeQty = this.changeQty.bind(this);
     this.placeOrder = this.placeOrder.bind(this);
   }
 
@@ -62,10 +63,28 @@ export default class App extends React.Component {
     })
       .then(response => response.json())
       .then(data => {
-        const newCart = this.state.cart.concat([data]);
-        this.setState({
-          cart: newCart
-        });
+        this.getCartItems();
+      })
+      .catch(err => {
+        console.error('Error fetching cart when adding new item:', err);
+      });
+  }
+
+  changeQty(productId, quantity) {
+    const reqBody = JSON.stringify({ productId: productId, quantity: quantity });
+    fetch('/api/cart', {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: reqBody
+    })
+      .then(response => response.json())
+      .then(data => {
+        this.getCartItems();
+      })
+      .catch(err => {
+        console.error('Error fetching cart when changing item quantity:', err);
       });
   }
 
@@ -137,7 +156,8 @@ export default class App extends React.Component {
           <Header cartItemCount={this.state.cart.length} setViewCallback={this.setView} />
           <CartSummary
             cartItems={this.state.cart}
-            setViewCallback={this.setView}/>
+            setViewCallback={this.setView}
+            changeQtyCallback={this.changeQty} />
         </>
       );
     } else if (viewName === 'checkout') {
