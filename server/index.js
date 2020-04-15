@@ -83,9 +83,9 @@ app.post('/api/cart', (req, res, next) => {
       returning "cartId"
   `;
   const checkItemSql = `
-    select "quantity"
+    select quantity
       from "cartItems"
-      where ("cartId" = ${req.session.cartId} AND "productId" = $1)
+      where "cartId" = ${req.session.cartId} AND "productId" = $1
   `;
   const cartItemsSql = `
     insert into "cartItems" ("cartId", "productId", "price", "quantity")
@@ -95,8 +95,8 @@ app.post('/api/cart', (req, res, next) => {
   const updateSql = `
     UPDATE "cartItems"
       SET "quantity" = $1
-      WHERE ("cartId" = ${req.session.cartId} AND "productId" = ${productId})
-      RETURNING *
+      WHERE "cartId" = ${req.session.cartId} AND "productId" = ${productId}
+      RETURNING "cartItemId"
   `;
   const responseSql = `
   select "c"."cartItemId",
@@ -131,23 +131,23 @@ app.post('/api/cart', (req, res, next) => {
       req.session.cartId = cartObj.cartId;
       return db.query(checkItemSql, [productId])
         .then(quantity => {
-          console.log('Quantity Promise:', quantity);
           if (quantity.rows[0] !== undefined) cartObj.quantity = quantity.rows[0].quantity;
           return cartObj;
         });
     })
     .then(cartObj => {
-      console.log('cartObj:', cartObj);
-      console.log('cartObj.quantity:', cartObj.quantity);
       if (cartObj.quantity !== undefined) {
-        return db.query(updateSql, [++cartObj.quantity]);
+        return db.query(updateSql, [++cartObj.quantity])
+          .then(result => result.rows[0].cartItemId);
       }
       return db.query(cartItemsSql, [cartObj.cartId, productId, cartObj.price, 1])
         .then(result => result.rows[0].cartItemId);
     })
     .then(cartItemId => {
       return db.query(responseSql, [cartItemId])
-        .then(result => res.status(201).json(result.rows[0]));
+        .then(result => {
+          res.status(201).json(result.rows[0]);
+        });
     })
     .catch(err => next(err));
 
