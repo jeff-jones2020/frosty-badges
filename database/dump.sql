@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.10 (Ubuntu 10.10-0ubuntu0.18.04.1)
--- Dumped by pg_dump version 10.10 (Ubuntu 10.10-0ubuntu0.18.04.1)
+-- Dumped from database version 10.12 (Ubuntu 10.12-0ubuntu0.18.04.1)
+-- Dumped by pg_dump version 10.12 (Ubuntu 10.12-0ubuntu0.18.04.1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -74,7 +74,8 @@ CREATE TABLE public."cartItems" (
     "cartItemId" integer NOT NULL,
     "cartId" integer NOT NULL,
     "productId" integer NOT NULL,
-    price integer NOT NULL
+    price integer NOT NULL,
+    quantity integer NOT NULL
 );
 
 
@@ -228,23 +229,7 @@ ALTER TABLE ONLY public.products ALTER COLUMN "productId" SET DEFAULT nextval('p
 -- Data for Name: cartItems; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public."cartItems" ("cartItemId", "cartId", "productId", price) FROM stdin;
-1	6	4	999
-2	7	4	999
-3	8	4	999
-4	9	4	999
-5	9	4	999
-6	9	5	9900
-7	9	2	2595
-8	10	2	2595
-9	10	3	2900
-10	10	5	9900
-11	10	1	2999
-12	10	6	830
-13	11	2	2595
-14	11	5	9900
-15	11	6	830
-16	11	3	2900
+COPY public."cartItems" ("cartItemId", "cartId", "productId", price, quantity) FROM stdin;
 \.
 
 
@@ -264,6 +249,18 @@ COPY public.carts ("cartId", "createdAt") FROM stdin;
 9	2020-03-11 14:58:42.451729-07
 10	2020-03-11 17:58:08.809215-07
 11	2020-03-12 10:25:13.2083-07
+12	2020-04-08 18:20:01.003518-07
+13	2020-04-08 18:25:11.908195-07
+14	2020-04-08 18:30:56.555081-07
+15	2020-04-08 18:31:48.023748-07
+16	2020-04-08 18:37:31.496173-07
+17	2020-04-09 12:40:07.637265-07
+18	2020-04-09 13:27:22.871163-07
+19	2020-04-09 13:40:42.422896-07
+20	2020-04-10 16:21:30.299287-07
+21	2020-04-12 13:52:11.274193-07
+22	2020-04-13 10:48:53.770811-07
+23	2020-04-13 13:02:35.306379-07
 \.
 
 
@@ -272,6 +269,13 @@ COPY public.carts ("cartId", "createdAt") FROM stdin;
 --
 
 COPY public.orders ("orderId", "cartId", name, "creditCard", "shippingAddress", "createdAt") FROM stdin;
+1	12	Jeff	41451	1200 Yolo Ln	2020-04-08 18:20:36.213452-07
+2	13	Jeffery S Jones	23543564	1200 Somewhere Ln	2020-04-08 18:25:44.64368-07
+3	14	Jeffery S Jones	2511454178941	5252	2020-04-08 18:31:33.666327-07
+4	15	Trey Vanders	2525 2521 2644 2568	5000 Somewhere Ln	2020-04-08 18:32:19.673791-07
+5	17	dsfdsfsd	sdfdsfsd	sdfsdfsdf	2020-04-09 13:05:18.496253-07
+6	18	Jeffery S Jones	dsfsdf	sdfdsf	2020-04-09 13:27:36.210385-07
+7	22	fghfgh	dfghdfgh	dfghdfh	2020-04-13 13:02:29.568893-07
 \.
 
 
@@ -293,21 +297,21 @@ COPY public.products ("productId", name, price, image, "shortDescription", "long
 -- Name: cartItems_cartItemId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."cartItems_cartItemId_seq"', 16, true);
+SELECT pg_catalog.setval('public."cartItems_cartItemId_seq"', 87, true);
 
 
 --
 -- Name: carts_cartId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."carts_cartId_seq"', 11, true);
+SELECT pg_catalog.setval('public."carts_cartId_seq"', 23, true);
 
 
 --
 -- Name: orders_orderId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."orders_orderId_seq"', 1, false);
+SELECT pg_catalog.setval('public."orders_orderId_seq"', 7, true);
 
 
 --
