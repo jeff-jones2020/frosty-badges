@@ -41,7 +41,7 @@ export default class CheckoutForm extends React.Component {
 
   render() {
     let totalPrice = this.props.cartItems.reduce(
-      (accumulator, item) => accumulator + item.price,
+      (accumulator, item) => accumulator + item.price * item.quantity,
       0);
 
     totalPrice = (totalPrice / 100).toFixed(2); // convert to dollar amount
