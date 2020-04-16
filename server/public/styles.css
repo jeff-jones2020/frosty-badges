@@ -2,8 +2,8 @@ html, body {
   height: 100%;
 }
 
-#warning-modal-wrapper, #added-modal-wrapper {
-  position: absolute;
+#modal-wrapper {
+  position: fixed;
   z-index: 1;
   top: 0;
   height: 100%;
@@ -11,7 +11,7 @@ html, body {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-#warning-modal, #added-modal {
+#modal {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -32,7 +32,6 @@ html, body {
 }
 
 .disable-scroll {
-  height: 100%;
   overflow: hidden;
 }
 
@@ -102,4 +101,8 @@ html, body {
 
 .trashcan {
   font-size: 24px;
+}
+
+.btn-slim {
+  width: fit-content;
 }

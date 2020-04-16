@@ -83,8 +83,8 @@ function AddedModal(props) {
   document.getElementsByTagName('body')[0].classList.add('disable-scroll');
 
   return (
-    <section id='added-modal-wrapper'>
-      <div id='added-modal' className='d-flex justify-content-between p-4'>
+    <section id='modal-wrapper'>
+      <div id='modal' className='d-flex justify-content-between p-4'>
         <section className='d-flex flex-column align-items-center justify-content-around mr-5'>
           <h2 className='text-primary mb-4'>Item added to cart!</h2>
           <div id='detail-img-wrapper' className='d-flex justify-content-center col-8'>

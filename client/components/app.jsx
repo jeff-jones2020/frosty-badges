@@ -221,8 +221,8 @@ function DemoWarning(props) {
   document.getElementsByTagName('body')[0].classList.add('disable-scroll');
 
   return (
-    <section id='warning-modal-wrapper'>
-      <div id='warning-modal'>
+    <section id='modal-wrapper'>
+      <div id='modal'>
         <h1 className='text-danger'>Warning</h1>
         <h3 className='mb-4'>This website is a demo; <em>no real purchases will be made.</em></h3>
         <button id='warning-modal-button' type='button' onClick={props.toggleWarning} className='btn btn-primary'>I understand</button>
