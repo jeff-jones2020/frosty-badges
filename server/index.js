@@ -61,6 +61,7 @@ app.get('/api/cart', (req, res, next) => {
       from "cartItems" as "c"
       join "products" as "p" using ("productId")
       where "c"."cartId" = $1
+      order by "p"."productId"
   `;
 
   if (!req.session.cartId) return res.json([]);
