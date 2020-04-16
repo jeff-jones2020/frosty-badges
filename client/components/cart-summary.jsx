@@ -6,10 +6,15 @@ export default class CartSummary extends React.Component {
 
     this.changeQty = this.changeQty.bind(this);
     this.setView = this.setView.bind(this);
+    this.removeFromCart = this.removeFromCart.bind(this);
   }
 
   changeQty(e) {
     this.props.changeQtyCallback(e.target.getAttribute('product-id'), e.target.value);
+  }
+
+  removeFromCart(e) {
+    this.props.removeFromCartCallback(e.target.getAttribute('product-id'));
   }
 
   setView(e) {
@@ -36,6 +41,7 @@ export default class CartSummary extends React.Component {
           shortDescription={item.shortDescription}
           quantity={item.quantity}
           setViewCallback={this.setView}
+          removeFromCart={this.removeFromCart}
           changeQty={this.changeQty} />
       );
     });
@@ -44,7 +50,7 @@ export default class CartSummary extends React.Component {
     const formattedPrice = '$' + cartTotal;
 
     return (
-      <section id='cart-summary-content' className='flex flex-column col-11 mx-auto'>
+      <section id='cart-summary-content' className='flex flex-column col-md-10 col-lg-8 col-11 mx-auto'>
         <div
           id='back-to-catalog'
           onClick={this.setView}
@@ -88,16 +94,16 @@ function CartSummaryItem(props) {
         <h5 className='card-title title-text'>{props.name}</h5>
         <p className='card-text card-text-small text-muted'>{formattedPrice}</p>
         <p className='card-text'>{props.shortDescription}</p>
-        <label htmlFor='quantity' className='mr-2'>Quantity (100 max):</label>
+        <label htmlFor='quantity' className='mr-2'>Quantity: </label>
         <input
           onChange={props.changeQty}
           type='number'
-          id='quantity'
+          className='quantity mr-3'
           product-id={props.productId}
           name='quantity'
-          min='1'
-          max='100'
-          defaultValue={props.quantity}/>
+          defaultValue={props.quantity}
+          size='5' />
+        <i product-id={props.productId} onClick={props.removeFromCart} className="fas fa-trash-alt text-danger trashcan"></i>
       </div>
     </div>
   );

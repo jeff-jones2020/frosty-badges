@@ -23,6 +23,7 @@ export default class App extends React.Component {
     this.setView = this.setView.bind(this);
     this.addToCart = this.addToCart.bind(this);
     this.changeQty = this.changeQty.bind(this);
+    this.removeFromCart = this.removeFromCart.bind(this);
     this.placeOrder = this.placeOrder.bind(this);
   }
 
@@ -85,6 +86,19 @@ export default class App extends React.Component {
       })
       .catch(err => {
         console.error('Error fetching cart when changing item quantity:', err);
+      });
+  }
+
+  removeFromCart(productId) {
+    fetch(`/api/cart/${productId}`, {
+      method: 'DELETE'
+    })
+      .then(response => response.json())
+      .then(data => {
+        this.getCartItems();
+      })
+      .catch(err => {
+        console.error('Error fetching cart when deleting item:', err);
       });
   }
 
@@ -157,7 +171,8 @@ export default class App extends React.Component {
           <CartSummary
             cartItems={this.state.cart}
             setViewCallback={this.setView}
-            changeQtyCallback={this.changeQty} />
+            changeQtyCallback={this.changeQty}
+            removeFromCartCallback={this.removeFromCart} />
         </>
       );
     } else if (viewName === 'checkout') {

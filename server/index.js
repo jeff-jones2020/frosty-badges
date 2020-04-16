@@ -166,8 +166,25 @@ app.patch('/api/cart', (req, res, next) => {
   `;
 
   db.query(updateSql, [quantity])
-    .then(result => res.status(201).json(result.rows[0]));
+    .then(result => res.status(201).json(result.rows[0]))
+    .catch(err => next(err));
 
+});
+
+app.delete('/api/cart/:productId', (req, res, next) => {
+  const { productId } = req.params;
+  if (productId % 1 !== 0 || productId < 1) { return next(new ClientError('Invalid request, productId must be a positive integer', 400)); }
+
+  const deleteSql = `
+    DELETE FROM "cartItems"
+      WHERE "cartId" = ${req.session.cartId} AND "productId" = $1
+  `;
+
+  db.query(deleteSql, [productId])
+    .then(result => {
+      res.status(200).send({ message: 'The requested resource was deleted.' });
+    })
+    .catch(err => next(err));
 });
 
 app.post('/api/orders', (req, res, next) => {
