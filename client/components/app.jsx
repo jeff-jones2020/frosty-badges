@@ -50,10 +50,13 @@ export default class App extends React.Component {
         this.setState({
           cart: Array.from(data)
         });
+      })
+      .catch(err => {
+        console.error('Error fetching cart:', err);
       });
   }
 
-  addToCart(product) {
+  addToCart(product, iterations = 0) {
     const reqBody = JSON.stringify({ productId: product.productId });
     fetch('/api/cart', {
       method: 'POST',
@@ -62,12 +65,21 @@ export default class App extends React.Component {
       },
       body: reqBody
     })
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) {
+          throw Error(response);
+        }
+        return response.json();
+      })
       .then(data => {
         this.getCartItems();
       })
       .catch(err => {
-        console.error('Error fetching cart when adding new item:', err);
+        if (iterations < 1) {
+          setTimeout(() => this.addToCart(product, ++iterations), 100);
+        } else {
+          console.error('Error fetching cart when adding new item:', err);
+        }
       });
   }
 
