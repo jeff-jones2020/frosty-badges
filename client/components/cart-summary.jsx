@@ -153,7 +153,7 @@ function CartSummaryItem(props) {
           name='quantity'
           last-quantity={null}
           defaultValue={props.quantity}
-          size='5' />
+          min='1' />
 
         <i product-id={props.productId} onClick={props.removeFromCart} className="fas fa-trash-alt text-danger trashcan"></i>
       </div>

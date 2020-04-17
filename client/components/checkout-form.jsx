@@ -5,11 +5,9 @@ export default class CheckoutForm extends React.Component {
     super(props);
 
     this.state = {
-      inputs: {
-        name: '',
-        creditCard: '',
-        shippingAddress: ''
-      },
+      name: '',
+      creditCard: '',
+      shippingAddress: '',
       orderDisabled: true
     };
 
@@ -19,19 +17,29 @@ export default class CheckoutForm extends React.Component {
   }
 
   updateStateText(e) {
-    const newInputs = JSON.parse(JSON.stringify(this.state.inputs));
+    if (!this.validateAndCorrect(e.target)) return;
+    const { name, creditCard, shippingAddress } = this.state;
+    const newInputs = { name, creditCard, shippingAddress };
     newInputs[e.target.id] = e.target.value;
-    const disable = !(newInputs.name.length && newInputs.creditCard.length && newInputs.shippingAddress.length);
 
+    const disable = !(newInputs.name.length && newInputs.creditCard.length && newInputs.shippingAddress.length);
     this.setState({
-      inputs: newInputs,
+      name: newInputs.name,
+      creditCard: newInputs.creditCard,
+      shippingAddress: newInputs.shippingAddress,
       orderDisabled: disable
     });
+
+  }
+
+  validateAndCorrect(inputEl) {
+
   }
 
   placeOrder(e) {
     e.preventDefault();
-    this.props.placeOrderCallback(this.state.inputs);
+    const { name, creditCard, shippingAddress } = this.state;
+    this.props.placeOrderCallback({ name, creditCard, shippingAddress });
     this.setView();
   }
 
@@ -48,20 +56,21 @@ export default class CheckoutForm extends React.Component {
     const priceFormatted = '$' + totalPrice;
 
     return (
-      <section id='checkout-form' className='d-flex flex-column col-11 mx-auto'>
-        <h1 className='my-4'>My Cart</h1>
+      <section id='checkout-form' className='d-flex flex-column col-md-8 col-lg-6 col-xl-4 col-12 mx-auto'>
+        <h1 className='my-4'>Checkout</h1>
         <p className='text-muted mb-4'>
           <strong>Order Total: {priceFormatted}</strong>
         </p>
-        <h3 className='text-danger text-center'><em>***Please do not enter personal information, this checkout form is for demo purposes only***</em></h3>
+        <h3 className='text-danger text-center mb-4'><em>***Please do not enter personal information, this checkout form is for demo purposes only***</em></h3>
         <form className='mb-4'>
           <div className='form-group'>
-            <label htmlFor='name'>Name</label>
+            <label htmlFor='name'>Full Name</label>
             <input type='text'
               name='name'
-              value={this.state.inputs.name}
+              value={this.state.name}
               onChange={this.updateStateText}
               className='form-control'
+              placeholder='John M Doe'
               id='name' />
           </div>
           <div className='form-group'>
@@ -69,9 +78,10 @@ export default class CheckoutForm extends React.Component {
             <input
               type='text'
               name='credit-card'
-              value={this.state.inputs.creditCard}
+              value={this.state.creditCard}
               onChange={this.updateStateText}
               className='form-control'
+              placeholder='0000-0000-0000-0000'
               id='creditCard' />
           </div>
           <div className='form-group'>
@@ -79,9 +89,10 @@ export default class CheckoutForm extends React.Component {
             <input
               type='text'
               name='shipping-address'
-              value={this.state.inputs.shippingAddress}
+              value={this.state.shippingAddress}
               onChange={this.updateStateText}
               className='form-control'
+              placeholder='1234 Springfield Rd'
               id='shippingAddress' />
           </div>
         </form>
