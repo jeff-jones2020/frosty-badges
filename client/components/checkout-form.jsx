@@ -6,23 +6,27 @@ export default class CheckoutForm extends React.Component {
 
     this.state = {
       name: '',
+      nameShort: true,
       creditCard: '',
+      creditCardShort: true,
       shippingAddress: '',
+      shippingAddressShort: true,
       orderDisabled: true
     };
 
     this.placeOrder = this.placeOrder.bind(this);
     this.updateStateText = this.updateStateText.bind(this);
     this.setView = this.setView.bind(this);
+    this.validateAndCorrect = this.validateAndCorrect.bind(this);
   }
 
   updateStateText(e) {
     if (!this.validateAndCorrect(e.target)) return;
-    const { name, creditCard, shippingAddress } = this.state;
+    const { name, creditCard, shippingAddress, nameShort, creditCardShort, shippingAddressShort } = this.state;
     const newInputs = { name, creditCard, shippingAddress };
     newInputs[e.target.id] = e.target.value;
 
-    const disable = !(newInputs.name.length && newInputs.creditCard.length && newInputs.shippingAddress.length);
+    const disable = nameShort || creditCardShort || shippingAddressShort;
     this.setState({
       name: newInputs.name,
       creditCard: newInputs.creditCard,
@@ -33,7 +37,51 @@ export default class CheckoutForm extends React.Component {
   }
 
   validateAndCorrect(inputEl) {
-
+    let isValid = true;
+    if (inputEl.id === 'name') {
+      let name = inputEl.value.trim();
+      let nameShort = false;
+      if (name.length < 5) {
+        nameShort = !nameShort;
+        isValid = false;
+      } else if (name.length >= 65) {
+        name = name.slice(0, name.length - 1);
+        isValid = false;
+      }
+      this.setState({ name, nameShort });
+      return isValid;
+    } else if (inputEl.id === 'creditCard') {
+      let creditCard = inputEl.value.trim().replace(/[-]/g, '');
+      let creditCardShort = false;
+      if (!creditCard.length) {
+        isValid = false;
+      } else if (creditCard.length > 16 || !creditCard[creditCard.length - 1].match(/[0-9]/)) {
+        creditCard = creditCard.slice(0, creditCard.length - 1);
+        isValid = false;
+      } else if (creditCard.length < 16) {
+        creditCardShort = !creditCardShort;
+        isValid = false;
+      }
+      const newLength = creditCard.length + Math.floor(creditCard.length / 4 - 1);
+      for (let i = 4; i < newLength; i += 4) {
+        creditCard = creditCard.slice(0, i) + '-' + creditCard.slice(i, creditCard.length);
+        i++;
+      }
+      this.setState({ creditCard, creditCardShort });
+      return isValid;
+    } else if (inputEl.id === 'shippingAddress') {
+      let shippingAddress = inputEl.value;
+      let shippingAddressShort = false;
+      if (shippingAddress.length < 21) {
+        shippingAddressShort = !shippingAddressShort;
+        isValid = false;
+      } else if (shippingAddress.length > 156) {
+        shippingAddress = shippingAddress.slice(0, shippingAddress.length - 1);
+        isValid = false;
+      }
+      this.setState({ shippingAddress, shippingAddressShort });
+      return isValid;
+    }
   }
 
   placeOrder(e) {
@@ -92,7 +140,7 @@ export default class CheckoutForm extends React.Component {
               value={this.state.shippingAddress}
               onChange={this.updateStateText}
               className='form-control'
-              placeholder='1234 Springfield Rd'
+              placeholder='1234 Example Street, Irvine CA 92618'
               id='shippingAddress' />
           </div>
         </form>
