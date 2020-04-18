@@ -111,3 +111,7 @@ html, body {
 .validation-err {
   height: 25px;
 }
+
+#place-order-btn {
+  cursor: initial;
+}

@@ -200,10 +200,10 @@ app.post('/api/orders', (req, res, next) => {
     return next(new ClientError('"name" must be 5 to 64 characters, trimmed', 400));
   }
 
-  const cardTrimmed = creditCard.trim().replace(/[-]/g, '');
-  if (!cardTrimmed[cardTrimmed.length - 1].match(/[0-9]/)) {
+  const trimmedCard = creditCard.trim().replace(/[-]/g, '');
+  if (!trimmedCard[trimmedCard.length - 1].match(/[0-9]/)) {
     return next(new ClientError('"creditCard" must only contain numbers and dashes', 400));
-  } else if (cardTrimmed.length !== 16) {
+  } else if (trimmedCard.length !== 16) {
     return next(new ClientError('"creditCard" must be 16 characters, trimmed', 400));
   }
 

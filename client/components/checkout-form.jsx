@@ -85,6 +85,14 @@ export default class CheckoutForm extends React.Component {
 
   placeOrder(e) {
     e.preventDefault();
+    if (this.state.orderDisabled) {
+      this.setState({
+        nameMsgVisible: true,
+        cardMsgVisible: true,
+        addressMsgVisible: true
+      });
+      return;
+    }
     const { name, creditCard, shippingAddress } = this.state;
     this.props.placeOrderCallback({ name, creditCard, shippingAddress });
     this.setView();
@@ -158,14 +166,14 @@ export default class CheckoutForm extends React.Component {
           </div>
           <div className='form-group'>
             <label htmlFor='shipping-address'>Shipping Address</label>
-            <input
-              type='text'
+            <textarea
+              rows='5'
               name='shipping-address'
               value={this.state.shippingAddress}
               onChange={this.updateStateText}
               onBlur={this.revealMessage}
               className='form-control'
-              placeholder='1234 Example Street, Irvine CA 92618'
+              placeholder='1234 Example Street&#10;Irvine, CA 92618'
               data-vis='addressMsgVisible'
               id='shippingAddress' />
             <div className={`validation-err text-danger ${this.state.addressMsgVisible ? '' : 'invisible'}`}>
@@ -183,9 +191,8 @@ export default class CheckoutForm extends React.Component {
           <button
             id='place-order-btn'
             type='submit'
-            className='btn btn-primary btn-sm fit-content'
-            onClick={this.placeOrder}
-            disabled={this.state.orderDisabled}>
+            className={`btn btn-primary btn-sm fit-content ${this.state.orderDisabled ? 'disabled' : ''}`}
+            onClick={this.placeOrder} >
             Place Order
           </button>
         </div>
