@@ -12,7 +12,24 @@ export default class CartSummary extends React.Component {
   }
 
   changeQty(e) {
-    this.props.changeQtyCallback(e.target.getAttribute('product-id'), e.target.value);
+    if (e.target.value === '') return;
+    if (e.target.value < 1 & e.target.value !== '') {
+      e.target.value = 1;
+    } else if (e.target.value % 1 !== 0) {
+      e.target.value = Math.floor(e.target.value);
+    } else {
+      this.props.changeQtyCallback(e.target.getAttribute('product-id'), e.target.value);
+    }
+  }
+
+  checkQty(e) {
+    if (Number.isNaN(parseInt(e.target.value, 10))) {
+      e.target.value = e.target.getAttribute('last-quantity');
+    }
+  }
+
+  saveQty(e) {
+    e.target.setAttribute('last-quantity', e.target.value);
   }
 
   removeFromCart(e) {
@@ -63,7 +80,9 @@ export default class CartSummary extends React.Component {
           quantity={item.quantity}
           setViewCallback={this.setView}
           removeFromCart={this.removeFromCart}
-          changeQty={this.changeQty} />
+          changeQty={this.changeQty}
+          checkQty={this.checkQty}
+          saveQty={this.saveQty} />
       );
     });
     const removingModal =
@@ -126,12 +145,16 @@ function CartSummaryItem(props) {
         <label htmlFor='quantity' className='mr-2'>Quantity: </label>
         <input
           onChange={props.changeQty}
+          onBlur={props.checkQty}
+          onFocus={props.saveQty}
           type='number'
           className='quantity mr-3'
           product-id={props.productId}
           name='quantity'
+          last-quantity={null}
           defaultValue={props.quantity}
-          size='5' />
+          min='1' />
+
         <i product-id={props.productId} onClick={props.removeFromCart} className="fas fa-trash-alt text-danger trashcan"></i>
       </div>
     </div>

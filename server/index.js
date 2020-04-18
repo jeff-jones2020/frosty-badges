@@ -61,6 +61,7 @@ app.get('/api/cart', (req, res, next) => {
       from "cartItems" as "c"
       join "products" as "p" using ("productId")
       where "c"."cartId" = $1
+      order by "p"."productId"
   `;
 
   if (!req.session.cartId) return res.json([]);
@@ -193,6 +194,23 @@ app.post('/api/orders', (req, res, next) => {
 
   const { name, creditCard, shippingAddress } = req.body;
   if (!(name && creditCard && shippingAddress)) { return next(new ClientError('Request must contain \'name\', \'creditCard\', and \'shippingAddress\'', 400)); }
+
+  const trimmedName = name.trim();
+  if (trimmedName.length < 5 || trimmedName.length >= 65) {
+    return next(new ClientError('"name" must be 5 to 64 characters, trimmed', 400));
+  }
+
+  const trimmedCard = creditCard.trim().replace(/[-]/g, '');
+  if (!trimmedCard[trimmedCard.length - 1].match(/[0-9]/)) {
+    return next(new ClientError('"creditCard" must only contain numbers and dashes', 400));
+  } else if (trimmedCard.length !== 16) {
+    return next(new ClientError('"creditCard" must be 16 characters, trimmed', 400));
+  }
+
+  const trimmedAddress = shippingAddress.trim();
+  if (trimmedAddress.length < 21 || trimmedAddress.length > 156) {
+    return next(new ClientError('"shippingAddress" must be 21 to 156 characters, trimmed', 400));
+  }
 
   const orderSql = `
     insert into "orders" ("cartId", "name", "creditCard", "shippingAddress")

@@ -45,7 +45,7 @@ export default class ProductDetails extends React.Component {
 
     return (
       <>
-        {this.state.itemAdded ? <AddedModal setView={this.setView} image={this.state.product.image}/> : <i/>}
+        {this.state.itemAdded ? <AddedModal setView={this.setView} image={this.state.product.image}/> : <></>}
         <section id='details-area' className='card col-10 mx-auto p-3'>
           <div
             id='back-to-catalog'
