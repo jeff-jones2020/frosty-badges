@@ -107,3 +107,7 @@ html, body {
 .btn-slim {
   width: fit-content;
 }
+
+.validation-err {
+  height: 25px;
+}
