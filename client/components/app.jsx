@@ -150,55 +150,54 @@ export default class App extends React.Component {
   render() {
     const viewName = this.state.view.name;
 
-    // if (viewName === 'catalog' && this.state.showWarning) {
-    //   return (
-    //     <>
-    //       <DemoWarning toggleWarning={this.toggleWarning} />
-    //       <Header/>
-    //       <ProductList />
-    //     </>
-    //   );
-    // } else if (viewName === 'catalog') {
-    //   return (
-    //     <>
-    //       <Header cartItemCount={this.state.cart.length} setViewCallback={this.setView} />
-    //       <ProductList setViewCallback={this.setView} />
-    //     </>
-    //   );
-    // } else if (viewName === 'details') {
-    //   return (
-    //     <>
-    //       <Header cartItemCount={this.state.cart.length} setViewCallback={this.setView} />
-    //       <ProductDetails
-    //         viewParams={this.state.view.params}
-    //         setViewCallback={this.setView}
-    //         addToCartCallback={this.addToCart}
-    //         toggleWarning={this.toggleWarning} />
-    //     </>
-    //   );
-    // } else if (viewName === 'cart') {
-    //   return (
-    //     <>
-    //       <Header cartItemCount={this.state.cart.length} setViewCallback={this.setView} />
-    //       <CartSummary
-    //         cartItems={this.state.cart}
-    //         setViewCallback={this.setView}
-    //         changeQtyCallback={this.changeQty}
-    //         removeFromCartCallback={this.removeFromCart} />
-    //     </>
-    //   );
-    // }
-    // else if (viewName === 'checkout') {
-    return (
-      <>
-        <Header cartItemCount={this.state.cart.length} setViewCallback={this.setView} />
-        <CheckoutForm
-          cartItems={this.state.cart}
-          setViewCallback={this.setView}
-          placeOrderCallback={this.placeOrder} />
-      </>
-    );
-    // }
+    if (viewName === 'catalog' && this.state.showWarning) {
+      return (
+        <>
+          <DemoWarning toggleWarning={this.toggleWarning} />
+          <Header/>
+          <ProductList />
+        </>
+      );
+    } else if (viewName === 'catalog') {
+      return (
+        <>
+          <Header cartItemCount={this.state.cart.length} setViewCallback={this.setView} />
+          <ProductList setViewCallback={this.setView} />
+        </>
+      );
+    } else if (viewName === 'details') {
+      return (
+        <>
+          <Header cartItemCount={this.state.cart.length} setViewCallback={this.setView} />
+          <ProductDetails
+            viewParams={this.state.view.params}
+            setViewCallback={this.setView}
+            addToCartCallback={this.addToCart}
+            toggleWarning={this.toggleWarning} />
+        </>
+      );
+    } else if (viewName === 'cart') {
+      return (
+        <>
+          <Header cartItemCount={this.state.cart.length} setViewCallback={this.setView} />
+          <CartSummary
+            cartItems={this.state.cart}
+            setViewCallback={this.setView}
+            changeQtyCallback={this.changeQty}
+            removeFromCartCallback={this.removeFromCart} />
+        </>
+      );
+    } else if (viewName === 'checkout') {
+      return (
+        <>
+          <Header cartItemCount={this.state.cart.length} setViewCallback={this.setView} />
+          <CheckoutForm
+            cartItems={this.state.cart}
+            setViewCallback={this.setView}
+            placeOrderCallback={this.placeOrder} />
+        </>
+      );
+    }
   }
 }
 
