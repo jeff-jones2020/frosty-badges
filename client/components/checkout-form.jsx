@@ -14,7 +14,8 @@ export default class CheckoutForm extends React.Component {
       shippingAddress: '',
       shippingAddressShort: true,
       addressMsgVisible: false,
-      orderDisabled: true
+      orderDisabled: true,
+      displaySuccessModal: false
     };
 
     this.nameMissingMsg = 'Full Name is required.';
@@ -79,11 +80,11 @@ export default class CheckoutForm extends React.Component {
   revealMessage(e) {
     const visibilityPropName = e.target.getAttribute('data-vis');
     this.setState({
-      [`${visibilityPropName}`]: true
+      [visibilityPropName.toString()]: true
     });
   }
 
-  placeOrder(e) {
+  async placeOrder(e) {
     e.preventDefault();
     if (this.state.orderDisabled) {
       this.setState({
@@ -94,8 +95,7 @@ export default class CheckoutForm extends React.Component {
       return;
     }
     const { name, creditCard, shippingAddress } = this.state;
-    this.props.placeOrderCallback({ name, creditCard, shippingAddress });
-    this.setView();
+    const orderSuccess = await this.props.placeOrderCallback({ name, creditCard, shippingAddress });
   }
 
   setView() {
