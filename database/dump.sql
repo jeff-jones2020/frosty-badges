@@ -238,29 +238,6 @@ COPY public."cartItems" ("cartItemId", "cartId", "productId", price, quantity) F
 --
 
 COPY public.carts ("cartId", "createdAt") FROM stdin;
-1	2020-03-11 14:39:54.148546-07
-2	2020-03-11 14:40:38.385116-07
-3	2020-03-11 14:46:51.538394-07
-4	2020-03-11 14:49:41.671878-07
-5	2020-03-11 14:50:27.672169-07
-6	2020-03-11 14:50:50.936876-07
-7	2020-03-11 14:51:54.132444-07
-8	2020-03-11 14:58:07.771086-07
-9	2020-03-11 14:58:42.451729-07
-10	2020-03-11 17:58:08.809215-07
-11	2020-03-12 10:25:13.2083-07
-12	2020-04-08 18:20:01.003518-07
-13	2020-04-08 18:25:11.908195-07
-14	2020-04-08 18:30:56.555081-07
-15	2020-04-08 18:31:48.023748-07
-16	2020-04-08 18:37:31.496173-07
-17	2020-04-09 12:40:07.637265-07
-18	2020-04-09 13:27:22.871163-07
-19	2020-04-09 13:40:42.422896-07
-20	2020-04-10 16:21:30.299287-07
-21	2020-04-12 13:52:11.274193-07
-22	2020-04-13 10:48:53.770811-07
-23	2020-04-13 13:02:35.306379-07
 \.
 
 
@@ -269,13 +246,6 @@ COPY public.carts ("cartId", "createdAt") FROM stdin;
 --
 
 COPY public.orders ("orderId", "cartId", name, "creditCard", "shippingAddress", "createdAt") FROM stdin;
-1	12	Jeff	41451	1200 Yolo Ln	2020-04-08 18:20:36.213452-07
-2	13	Jeffery S Jones	23543564	1200 Somewhere Ln	2020-04-08 18:25:44.64368-07
-3	14	Jeffery S Jones	2511454178941	5252	2020-04-08 18:31:33.666327-07
-4	15	Trey Vanders	2525 2521 2644 2568	5000 Somewhere Ln	2020-04-08 18:32:19.673791-07
-5	17	dsfdsfsd	sdfdsfsd	sdfsdfsdf	2020-04-09 13:05:18.496253-07
-6	18	Jeffery S Jones	dsfsdf	sdfdsf	2020-04-09 13:27:36.210385-07
-7	22	fghfgh	dfghdfgh	dfghdfh	2020-04-13 13:02:29.568893-07
 \.
 
 
@@ -284,12 +254,13 @@ COPY public.orders ("orderId", "cartId", name, "creditCard", "shippingAddress", 
 --
 
 COPY public.products ("productId", name, price, image, "shortDescription", "longDescription") FROM stdin;
-1	Shake Weight	2999	/images/shake-weight.jpg	Dynamic Inertia technology ignites muscles in arms, shoulders, and chest.	Lorem ipsum dolor amet fashion axe pour-over jianbing, adaptogen waistcoat tacos master cleanse pitchfork next level. Thundercats pour-over chartreuse 90's. Master cleanse hot chicken ennui offal. Freegan slow-carb offal hell of. Umami polaroid wolf slow-carb next level. Gentrify cardigan seitan, kombucha tacos chambray roof party typewriter man braid. Tote bag lo-fi hell of chia fam hammock\\n.Aesthetic photo booth la croix, vaporware leggings biodiesel man braid tumeric skateboard tousled slow-carb four dollar toast synth pabst pickled. Typewriter church-key chia slow-carb vice gochujang actually. Shoreditch austin woke hot chicken, single-origin coffee ugh affogato four loko green juice. Migas iPhone four dollar toast mustache.
-2	ShamWow	2595	/images/shamwow.jpg	It's like a chamois, towel, and sponge, all in one! Soaks up to 10x it's weight in any liquid!	Lorem ipsum dolor amet fashion axe pour-over jianbing, adaptogen waistcoat tacos master cleanse pitchfork next level. Thundercats pour-over chartreuse 90's. Master cleanse hot chicken ennui offal. Freegan slow-carb offal hell of. Umami polaroid wolf slow-carb next level. Gentrify cardigan seitan, kombucha tacos chambray roof party typewriter man braid. Tote bag lo-fi hell of chia fam hammock\\n.Aesthetic photo booth la croix, vaporware leggings biodiesel man braid tumeric skateboard tousled slow-carb four dollar toast synth pabst pickled. Typewriter church-key chia slow-carb vice gochujang actually. Shoreditch austin woke hot chicken, single-origin coffee ugh affogato four loko green juice. Migas iPhone four dollar toast mustache.
-3	Snuggie	2900	/images/snuggie.jpg	Super-Soft Fleece with pockets! One Size fits all Adults! Keeps you Warm & Your Hands-Free!	Lorem ipsum dolor amet fashion axe pour-over jianbing, adaptogen waistcoat tacos master cleanse pitchfork next level. Thundercats pour-over chartreuse 90's. Master cleanse hot chicken ennui offal. Freegan slow-carb offal hell of. Umami polaroid wolf slow-carb next level. Gentrify cardigan seitan, kombucha tacos chambray roof party typewriter man braid. Tote bag lo-fi hell of chia fam hammock\\n.Aesthetic photo booth la croix, vaporware leggings biodiesel man braid tumeric skateboard tousled slow-carb four dollar toast synth pabst pickled. Typewriter church-key chia slow-carb vice gochujang actually. Shoreditch austin woke hot chicken, single-origin coffee ugh affogato four loko green juice. Migas iPhone four dollar toast mustache.
-4	Wax Vac	999	/images/wax-vac.jpg	Gentle way to remove ear wax. Safe and hygienic. Reduces the risk of painful infections.	Lorem ipsum dolor amet fashion axe pour-over jianbing, adaptogen waistcoat tacos master cleanse pitchfork next level. Thundercats pour-over chartreuse 90's. Master cleanse hot chicken ennui offal. Freegan slow-carb offal hell of. Umami polaroid wolf slow-carb next level. Gentrify cardigan seitan, kombucha tacos chambray roof party typewriter man braid. Tote bag lo-fi hell of chia fam hammock\\n.Aesthetic photo booth la croix, vaporware leggings biodiesel man braid tumeric skateboard tousled slow-carb four dollar toast synth pabst pickled. Typewriter church-key chia slow-carb vice gochujang actually. Shoreditch austin woke hot chicken, single-origin coffee ugh affogato four loko green juice. Migas iPhone four dollar toast mustache.
-5	Ostrich Pillow	9900	/images/ostrich-pillow.jpg	Create your own snugly space in the world and feel-good anywhere with the ultimate cocoon pillow.	Lorem ipsum dolor amet fashion axe pour-over jianbing, adaptogen waistcoat tacos master cleanse pitchfork next level. Thundercats pour-over chartreuse 90's. Master cleanse hot chicken ennui offal. Freegan slow-carb offal hell of. Umami polaroid wolf slow-carb next level. Gentrify cardigan seitan, kombucha tacos chambray roof party typewriter man braid. Tote bag lo-fi hell of chia fam hammock\\n.Aesthetic photo booth la croix, vaporware leggings biodiesel man braid tumeric skateboard tousled slow-carb four dollar toast synth pabst pickled. Typewriter church-key chia slow-carb vice gochujang actually. Shoreditch austin woke hot chicken, single-origin coffee ugh affogato four loko green juice. Migas iPhone four dollar toast mustache.
-6	Tater Mitts	830	/images/tater-mitts.jpg	8 Seconds is all you need with Tater Mitts. Quickly and easily prepare all your favorite potato dishes with Tater Mitts.	Lorem ipsum dolor amet fashion axe pour-over jianbing, adaptogen waistcoat tacos master cleanse pitchfork next level. Thundercats pour-over chartreuse 90's. Master cleanse hot chicken ennui offal. Freegan slow-carb offal hell of. Umami polaroid wolf slow-carb next level. Gentrify cardigan seitan, kombucha tacos chambray roof party typewriter man braid. Tote bag lo-fi hell of chia fam hammock\\n.Aesthetic photo booth la croix, vaporware leggings biodiesel man braid tumeric skateboard tousled slow-carb four dollar toast synth pabst pickled. Typewriter church-key chia slow-carb vice gochujang actually. Shoreditch austin woke hot chicken, single-origin coffee ugh affogato four loko green juice. Migas iPhone four dollar toast mustache.
+2	D.Va Bunny	999	images/bunny.png	D.Va's iconic symbol!	D.Va is a former professional gamer who now uses her skills to pilot a state-of-the-art mech in defense of her homeland. She is a very competitive individual, and coupled with her pro-gamer skills, this makes her an extremely effective mech pilot. Never backing down, D.Va always plays to win.  While she projects a carefree, irreverant attitude, D.Va is burdened by the emotional cost of defending her homeland, and the facade the South Korean media projects on her.
+3	Hammond	999	images/hammond.png	The scrappy, intelligent hamster known as Hammond!	Described as "witty and conniving," Hammond is capable of speech, just not in any human language. His mech (named "Wrecking Ball") translates his comments into English, via a soundboard. The mech itself is equipped with a minor AI. Winston is the one individual Hammond can converse with normally as they're both animals.
+4	Lúcio Logo	1499	images/lucio.png	Lucio's iconic symbol, the frog with headphones.	Lúcio is an international celebrity who inspires social change through his music and actions. He has a positive, up-beat attitude, and is always looking towards the future. Lúcio wears hard-light skates that project hard-light "blades," allowing him to traverse any surface.[5]
+5	MEKA Logo	1299	images/meka.png	The logo of MEKA, the Mobile Exo-Force of the Korean Army	MEKA exists primarily as a mechanized walker force. It also has access to infantry, medical, and search-and-rescue support (either within the unit or through the South Korean Army).
+6	Snowball	1499	images/snowball.png	Mei's incredible weather-modification invention and cheerful companion, Snowball!	Snowball is a small, blue dome-shaped drone capable of creating isolated flurries of snow and ice, freezing everything and everyone surrounding it. The "eyes" are shapes shown on an LED screen or an equivalent that serve as a face, changing shape to communicate mood. The screen can serve as a flashlight, show images (e.g. a battery sign) and letters and numbers. It is usually docked on the capsule on Mei's back, and is able to detach itself at will. Snowball moves around by hovering, through the use of three adjustable thrusters for "feet". It has a playful and sometimes mischievous personality.
+7	Soldier Logo	999	images/soldier.png	Soldier's iconic symbol and identifier, the number "76"	Currently the target of an international manhunt, the vigilante known as Soldier: 76 wages a personal war to expose the truth behind Overwatch's collapse. Due to his genetic enhancement, he can heal wounds and acclimatize much faster than a normal human. He has always been a light sleeper. He was a fan of Indiana University basketball and was also a fan of Westerns...at least until he met Jesse McCree. He is of Catholic faith. He has a smile that he uses to get himself out of trouble, though is usually taciturn. He is well-read, showing interest in historical generals, and is a chess player, apparently admiring Bobby Fischer. The mask he wears distorts his voice.
+8	Sombra Logo	1499	images/sombra.png	Sombra's calling card, often used to taunt the victims of her hacking skills.	One of the world's most notorious hackers, Sombra uses information to manipulate those in power. Sombra's skills include computer hacking and cryptography; these are activities she greatly enjoys, to the point where the desire to get past locks and solving mysteries is ingrained in her personality. She is a known associate of Reaper, specializing in espionage and intelligence assessment. She is equipped with devices that allow hacking of technology just through touch. This includes a cybernetic graft implanted along her spine, which basically makes her a living computer. She is a loner emotionally, finding it difficult to make friends (outside coercion). Her personal calling card is a sugar skull.
 \.
 
 
@@ -297,28 +268,28 @@ COPY public.products ("productId", name, price, image, "shortDescription", "long
 -- Name: cartItems_cartItemId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."cartItems_cartItemId_seq"', 87, true);
+SELECT pg_catalog.setval('public."cartItems_cartItemId_seq"', 236, true);
 
 
 --
 -- Name: carts_cartId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."carts_cartId_seq"', 23, true);
+SELECT pg_catalog.setval('public."carts_cartId_seq"', 121, true);
 
 
 --
 -- Name: orders_orderId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."orders_orderId_seq"', 7, true);
+SELECT pg_catalog.setval('public."orders_orderId_seq"', 105, true);
 
 
 --
 -- Name: products_productId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."products_productId_seq"', 1, false);
+SELECT pg_catalog.setval('public."products_productId_seq"', 8, true);
 
 
 --
