@@ -95,11 +95,16 @@ export default class CheckoutForm extends React.Component {
       return;
     }
     const { name, creditCard, shippingAddress } = this.state;
-    const orderSuccess = await this.props.placeOrderCallback({ name, creditCard, shippingAddress });
+    const orderSucceeded = await this.props.placeOrderCallback({ name, creditCard, shippingAddress });
+
+    if (orderSucceeded) {
+      this.setState({ displaySuccessModal: true });
+    }
   }
 
-  setView() {
-    this.props.setViewCallback('catalog', {});
+  setView(e) {
+    const viewName = e.target.getAttribute('data-view');
+    this.props.setViewCallback(viewName, {});
   }
 
   render() {
@@ -123,80 +128,118 @@ export default class CheckoutForm extends React.Component {
       }
     }
 
+    const orderSuccessModal = <OrderSuccessModal setViewCallback={this.setView} />;
+
     return (
-      <section id='checkout-form' className='d-flex flex-column col-md-8 col-lg-6 col-xl-4 col-12 mx-auto'>
-        <h1 className='my-4'>Checkout</h1>
-        <p className='text-muted mb-4'>
-          <strong>Order Total: {priceFormatted}</strong>
-        </p>
-        <h3 className='text-danger text-center mb-4'><em>***Please do not enter personal information, this checkout form is for demo purposes only***</em></h3>
-        <form className='mb-4'>
-          <div className='form-group'>
-            <label htmlFor='name'>Full Name</label>
-            <input
-              type='text'
-              name='name'
-              value={this.state.name}
-              onChange={this.updateStateText}
-              onBlur={this.revealMessage}
-              className='form-control'
-              placeholder='John M Doe'
-              data-vis='nameMsgVisible'
-              id='name' />
-            <div
-              className={`validation-err text-danger ${this.state.nameMsgVisible ? '' : 'invisible'}`}>
-              {errMessages[0]}
+      <>
+        {this.state.displaySuccessModal ? orderSuccessModal : <></>}
+        <section id='checkout-form' className='d-flex flex-column col-md-8 col-lg-6 col-xl-4 col-12 mx-auto'>
+          <h1 className='my-4'>Checkout</h1>
+          <p className='text-muted mb-4'>
+            <strong>Order Total: {priceFormatted}</strong>
+          </p>
+          <h3 className='text-danger text-center mb-4'><em>***Please do not enter personal information, this checkout form is for demo purposes only***</em></h3>
+          <form className='mb-4'>
+            <div className='form-group'>
+              <label htmlFor='name'>Full Name</label>
+              <input
+                type='text'
+                name='name'
+                value={this.state.name}
+                onChange={this.updateStateText}
+                onBlur={this.revealMessage}
+                className='form-control'
+                placeholder='John M Doe'
+                data-vis='nameMsgVisible'
+                id='name' />
+              <div
+                className={`validation-err text-danger ${this.state.nameMsgVisible ? '' : 'invisible'}`}>
+                {errMessages[0]}
+              </div>
             </div>
-          </div>
-          <div className='form-group'>
-            <label htmlFor='credit-card'>Credit Card</label>
-            <input
-              type='text'
-              name='credit-card'
-              value={this.state.creditCard}
-              onChange={this.updateStateText}
-              onBlur={this.revealMessage}
-              className='form-control'
-              placeholder='0000-0000-0000-0000'
-              data-vis='cardMsgVisible'
-              id='creditCard' />
-            <div className={`validation-err text-danger ${this.state.cardMsgVisible ? '' : 'invisible'}`}>
-              {errMessages[1]}
+            <div className='form-group'>
+              <label htmlFor='credit-card'>Credit Card</label>
+              <input
+                type='text'
+                name='credit-card'
+                value={this.state.creditCard}
+                onChange={this.updateStateText}
+                onBlur={this.revealMessage}
+                className='form-control'
+                placeholder='0000-0000-0000-0000'
+                data-vis='cardMsgVisible'
+                id='creditCard' />
+              <div className={`validation-err text-danger ${this.state.cardMsgVisible ? '' : 'invisible'}`}>
+                {errMessages[1]}
+              </div>
             </div>
-          </div>
-          <div className='form-group'>
-            <label htmlFor='shipping-address'>Shipping Address</label>
-            <textarea
-              rows='5'
-              name='shipping-address'
-              value={this.state.shippingAddress}
-              onChange={this.updateStateText}
-              onBlur={this.revealMessage}
-              className='form-control'
-              placeholder='1234 Example Street&#10;Irvine, CA 92618'
-              data-vis='addressMsgVisible'
-              id='shippingAddress' />
-            <div className={`validation-err text-danger ${this.state.addressMsgVisible ? '' : 'invisible'}`}>
-              {errMessages[2]}
+            <div className='form-group'>
+              <label htmlFor='shipping-address'>Shipping Address</label>
+              <textarea
+                rows='5'
+                name='shipping-address'
+                value={this.state.shippingAddress}
+                onChange={this.updateStateText}
+                onBlur={this.revealMessage}
+                className='form-control'
+                placeholder='1234 Example Street&#10;Irvine, CA 92618'
+                data-vis='addressMsgVisible'
+                id='shippingAddress' />
+              <div className={`validation-err text-danger ${this.state.addressMsgVisible ? '' : 'invisible'}`}>
+                {errMessages[2]}
+              </div>
             </div>
-          </div>
-        </form>
-        <div id='checkout-footer' className='d-flex flex-row justify-content-between mb-4'>
-          <div
-            id='continue-shopping'
-            onClick={this.setView}
-            className='text-muted'>
-            &lt; Continue Shopping
-          </div>
-          <button
-            id='place-order-btn'
-            type='submit'
-            className={`btn btn-primary btn-sm fit-content ${this.state.orderDisabled ? 'disabled' : ''}`}
-            onClick={this.placeOrder} >
+          </form>
+          <div id='checkout-footer' className='d-flex flex-row justify-content-between mb-4'>
+            <section>
+              <div
+                id='back-to-cart'
+                data-view='cart'
+                onClick={this.setView}
+                className='text-muted'>
+              &lt; Back to Cart
+              </div>
+              <div
+                id='continue-shopping'
+                data-view='catalog'
+                onClick={this.setView}
+                className='text-muted'>
+              &lt; Continue Shopping
+              </div>
+            </section>
+            <button
+              id='place-order-btn'
+              type='submit'
+              className={`btn btn-primary btn-sm fit-content ${this.state.orderDisabled ? 'disabled' : ''}`}
+              onClick={this.placeOrder} >
             Place Order
-          </button>
-        </div>
-      </section>
+            </button>
+          </div>
+        </section>
+      </>
     );
   }
+}
+
+function OrderSuccessModal(props) {
+  document.getElementsByTagName('body')[0].classList.add('disable-scroll');
+
+  return (
+    <section id='modal-wrapper'>
+      <div id='modal' className='mx-auto col-md-10 col-lg-5 col-xl-4 col-11 p-4'>
+        <section className='d-flex flex-column align-items-center justify-content-around mx-0'>
+          <h2 className='text-primary mb-4 text-center'>Thank you for your purchase!</h2>
+          <section className='d-flex align-items-center justify-content-around btn-column w-100'>
+            <button
+              type='button'
+              data-view='catalog'
+              onClick={props.setViewCallback}
+              className='btn btn-primary mb-2 btn-slim'>
+              Continue Shopping
+            </button>
+          </section>
+        </section>
+      </div>
+    </section>
+  );
 }

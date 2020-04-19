@@ -86,8 +86,9 @@ html, body {
   object-fit: scale-down;
   height: 100%;
 }
-#back-to-catalog:hover,
-#continue-shopping:hover {
+#back-to-catalog,
+#continue-shopping,
+#back-to-cart {
   cursor: pointer;
 }
 
@@ -112,6 +113,6 @@ html, body {
   height: 25px;
 }
 
-#place-order-btn {
+#place-order-btn.disabled {
   cursor: initial;
 }
