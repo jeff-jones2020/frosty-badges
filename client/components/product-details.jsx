@@ -56,7 +56,7 @@ export default class ProductDetails extends React.Component {
           </div>
 
           <div id='details-content-top' className='d-flex flex-wrap mb-4'>
-            <div id='detail-img-wrapper' className='d-flex justify-content-center col-5'>
+            <div className='d-flex justify-content-center col-5 detail-img-wrapper'>
               <img src={this.state.product.image} className='img-fluid'></img>
             </div>
             <section id='details-summary' className='d-flex flex-column col-7'>
@@ -84,13 +84,14 @@ function AddedModal(props) {
 
   return (
     <section id='modal-wrapper'>
-      <div id='modal' className='d-flex justify-content-between p-4'>
-        <section className='d-flex flex-column align-items-center justify-content-around mr-5'>
-          <h2 className='text-primary mb-4'>Item added to cart!</h2>
-          <div id='detail-img-wrapper' className='d-flex justify-content-center col-8'>
+      <div id='modal' className='d-flex justify-content-between col-xl-4 col-lg-6 col-md-7 col-sm-10 col-11 p-4 added-modal'>
+        <section className='d-flex flex-column align-items-center justify-content-around'>
+          <h2 className='text-primary my-4'>Item added to cart!</h2>
+          <div className='d-flex justify-content-center col-8 detail-img-wrapper'>
             <img src={props.image} className='img-fluid'></img>
           </div>
         </section>
+        <div className='col-1 mx-0'></div>
         <section className='d-flex flex-column align-items-center justify-content-around btn-column'>
           <button type='button' view='catalog' onClick={props.setView} className='btn btn-primary mb-2'>Continue<br/> Shopping</button>
           <button type='button' view='cart' onClick={props.setView} className='btn btn-success mb-2'>View Cart</button>

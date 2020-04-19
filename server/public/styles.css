@@ -79,10 +79,10 @@ html, body {
   transform: scale(1.05);
 }
 
-#detail-img-wrapper {
-  height: 275px;
+.detail-img-wrapper {
+  height: 150px;
 }
-#detail-img-wrapper img {
+.detail-img-wrapper img {
   object-fit: scale-down;
   height: 100%;
 }
@@ -115,4 +115,13 @@ html, body {
 
 #place-order-btn.disabled {
   cursor: initial;
+}
+
+@media only screen and (max-width: 600px) {
+  .added-modal {
+    flex-direction: column;
+  }
+  .added-modal section {
+    margin-right: 0;
+  }
 }
