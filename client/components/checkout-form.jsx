@@ -18,6 +18,13 @@ export default class CheckoutForm extends React.Component {
       displaySuccessModal: false
     };
 
+    let totalPrice = this.props.cartItems.reduce(
+      (accumulator, item) => accumulator + item.price * item.quantity,
+      0);
+
+    totalPrice = (totalPrice / 100).toFixed(2); // convert to dollar amount
+    this.priceFormatted = '$' + totalPrice;
+
     this.nameMissingMsg = 'Full Name is required.';
     this.nameShortMsg = 'Full Name must be at least 5 characters long.';
     this.cardMissingMsg = 'Credit Card number is required.';
@@ -29,6 +36,7 @@ export default class CheckoutForm extends React.Component {
     this.revealMessage = this.revealMessage.bind(this);
     this.placeOrder = this.placeOrder.bind(this);
     this.setView = this.setView.bind(this);
+    this.orderSuccessModal = <OrderSuccessModal setViewCallback={this.setView} />;
   }
 
   updateStateText(e) {
@@ -108,13 +116,6 @@ export default class CheckoutForm extends React.Component {
   }
 
   render() {
-    let totalPrice = this.props.cartItems.reduce(
-      (accumulator, item) => accumulator + item.price * item.quantity,
-      0);
-
-    totalPrice = (totalPrice / 100).toFixed(2); // convert to dollar amount
-    const priceFormatted = '$' + totalPrice;
-
     const errMessages = [null, null, null];
     if (this.state.orderDisabled) {
       if (this.state.nameShort) {
@@ -128,15 +129,13 @@ export default class CheckoutForm extends React.Component {
       }
     }
 
-    const orderSuccessModal = <OrderSuccessModal setViewCallback={this.setView} />;
-
     return (
       <>
-        {this.state.displaySuccessModal ? orderSuccessModal : <></>}
+        {this.state.displaySuccessModal ? this.orderSuccessModal : <></>}
         <section id='checkout-form' className='d-flex flex-column col-md-8 col-lg-6 col-xl-4 col-12 mx-auto'>
           <h1 className='my-4'>Checkout</h1>
           <p className='text-muted mb-4'>
-            <strong>Order Total: {priceFormatted}</strong>
+            <strong>Order Total: {this.priceFormatted}</strong>
           </p>
           <h3 className='text-danger text-center mb-4'><em>***Please do not enter personal information, this checkout form is for demo purposes only***</em></h3>
           <form className='mb-4'>
