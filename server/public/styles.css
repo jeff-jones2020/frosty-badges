@@ -2,6 +2,17 @@ html, body {
   height: 100%;
 }
 
+#header {
+  height: 50px;
+}
+#nav-brand {
+  height: 100%;
+}
+#nav-brand img {
+  height: 100%;
+  object-fit: scale-down;
+}
+
 #modal-wrapper {
   position: fixed;
   z-index: 1;

@@ -217,9 +217,11 @@ class Header extends React.Component {
     return (
       <div className='navbar-expand-md mb-4'>
         <nav id='header' className="d-flex justify-content-start navbar navbar-dark bg-dark">
-          <a className='nav-brand'>$</a>
+          <a id='nav-brand'>
+            <img src='images/favicon.png'></img>
+          </a>
           <div>
-            <a className='nav-item ml-2'>Wicked Sales</a>
+            <a className='nav-item ml-2'>Frosty Badges</a>
           </div>
           <div className='ml-auto cart' onClick={this.setView}>
             <i className='fas fa-shopping-cart'></i>
