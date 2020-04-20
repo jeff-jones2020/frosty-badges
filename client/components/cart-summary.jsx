@@ -33,16 +33,16 @@ export default class CartSummary extends React.Component {
   }
 
   removeFromCart(e) {
-    const cancel = e.target.getAttribute('cancel');
     if (e.target.getAttribute('product-id')) {
       this.setState({
         productToDelete: parseInt(e.target.getAttribute('product-id'), 10)
       });
-    } else if (cancel) {
+    } else if (e.target.getAttribute('cancel')) {
       this.setState({ productToDelete: null });
       document.getElementsByTagName('body')[0].classList.remove('disable-scroll');
     } else {
       this.props.removeFromCartCallback(this.state.productToDelete);
+      this.setState({ productToDelete: null });
       document.getElementsByTagName('body')[0].classList.remove('disable-scroll');
     }
   }
