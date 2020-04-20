@@ -1,5 +1,5 @@
 # frosty-badges
-A dynamic, responsive web application for Blizzard fans who want badges based on designs from their favorite games.
+A dynamic, responsive web application for Blizzard fans who want to buy badges based on designs from their favorite games.
 
 ## Live Website
 Try the application live at [https://frosty-badges.jeff-j.me](https://frosty-badges.jeff-j.me)
